@@ -27,6 +27,9 @@ class HomeViewController: UIViewController {
     
     // MARK: - Private Functions
     private func configureUI() {
+        // Hide the back button title on next view controller
+        hideNextTitleButtonNavBar()
+        
         // Fill temp content
         for _ in 0 ..< 4 {
             facts.accept(facts.value + ["a"])

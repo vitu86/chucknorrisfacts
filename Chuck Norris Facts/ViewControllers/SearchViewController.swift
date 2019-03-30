@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import MaterialComponents
 import DGCollectionViewLeftAlignFlowLayout
+import RxSwift
+import RxCocoa
 
 class SearchViewController: UIViewController {
     
@@ -22,9 +24,11 @@ class SearchViewController: UIViewController {
     
     // MARK: - Private Properties
     private var searchTFController:MDCTextInputControllerOutlined!
+    private var suggestions:BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
+    private var history:BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
     
-    // TEMP
-    private var content:[String] = []
+    // MARK: - Private Constants
+    private let disposeBag:DisposeBag = DisposeBag()
     
     // MARK: - View Controller Override Functions
     override func viewDidLoad() {
@@ -36,7 +40,8 @@ class SearchViewController: UIViewController {
             for _ in 0 ..< random {
                text.append("a")
             }
-            content.append(text)
+            suggestions.accept(suggestions.value + [text])
+            history.accept(history.value + ["a"])
         }
         
         
@@ -52,17 +57,50 @@ class SearchViewController: UIViewController {
         searchTextField.delegate = self
         
         // Configure History
-        historyTableView.dataSource = self
-        historyTableView.delegate = self
-        historyTableView.reloadData()
-        historyHeightConstraint.constant = historyTableView.contentSize.height
+        history.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element, cell) in
+            self.fillHistoryCell(row, element, cell)
+            }.disposed(by: disposeBag)
+        historyTableView.rx.modelSelected(String.self)
+            .subscribe(onNext:  { value in
+                self.onHistoryTapped(value)
+            })
+            .disposed(by: disposeBag)
         
         // Configure Suggestions
-        suggestionsCollectionView.delegate = self
-        suggestionsCollectionView.dataSource = self
+        suggestions.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element, cell) in
+            self.fillSuggestionCell(row, element, cell)
+        }.disposed(by: disposeBag)
+        suggestionsCollectionView.rx.modelSelected(String.self)
+            .subscribe(onNext:  { value in
+                self.onSuggestionTapped(value)
+            })
+            .disposed(by: disposeBag)
+        suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
-        suggestionsCollectionView.reloadData()
+    }
+    
+    // MARK: Table View Support Functions
+    private func fillHistoryCell (_ row: Int, _ element: String, _ cell: UITableViewCell) {
+        // Fill cell
+        cell.textLabel?.text = "Teste \(row)"
+        // Update height constraint so it doesn't create an inside scroll
+        historyHeightConstraint.constant = historyTableView.contentSize.height
+    }
+    
+    private func onHistoryTapped(_ string: String) {
+        print("Table view tapped")
+    }
+    
+    // MARK: Collection View Support Functions
+    private func fillSuggestionCell (_ row: Int, _ element: String, _ cell: SuggestionsCollectionViewCell) {
+        // Fill cell
+        cell.setCategory(suggestions.value[row])
+        // Update height constraint so it doesn't create an inside scroll
         suggestionsHeightConstraint.constant = suggestionsCollectionView.collectionViewLayout.collectionViewContentSize.height
+    }
+    
+    private func onSuggestionTapped(_ string: String) {
+        print("Collection view tapped")
     }
 }
 
@@ -74,45 +112,12 @@ extension SearchViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - Table View Override Functions
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell")!
-        cell.textLabel?.text = "Teste \(indexPath.row)"
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("History item selected")
-        // TODO: Load item
-    }
-}
-
-// MARK: - Collection View Override Functions
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SuggestionCell", for: indexPath) as! SuggestionsCollectionViewCell
-        cell.setCategory(content[indexPath.row])
-        return cell
-    }
-
+// MARK: - Collection View Layout Delegate Override Functions
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size: CGSize = content[indexPath.row].uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
+        var size: CGSize = suggestions.value[indexPath.row].uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
         size.width += 50 // Adjusting Text Insets
         size.height = 48 // Apple minimum button height
         return size
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Suggestion item selected")
-        // TODO: Load item
     }
 }
