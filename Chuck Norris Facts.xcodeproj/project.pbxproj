@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A106D41224FD52A00CAE13E /* DataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D40224FD52A00CAE13E /* DataHelper.swift */; };
+		4A106D44224FE5D100CAE13E /* Fact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D43224FE5D100CAE13E /* Fact.swift */; };
+		4A106D48224FE9BE00CAE13E /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */; };
 		4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697827224AF0FA00B7F780 /* AppDelegate.swift */; };
 		4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697829224AF0FA00B7F780 /* HomeViewController.swift */; };
 		4A69782D224AF0FA00B7F780 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A69782B224AF0FA00B7F780 /* Main.storyboard */; };
@@ -43,6 +46,9 @@
 
 /* Begin PBXFileReference section */
 		39FB8CC362A55463880A7191 /* Pods-Chuck Norris Facts.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris Facts.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris Facts/Pods-Chuck Norris Facts.debug.xcconfig"; sourceTree = "<group>"; };
+		4A106D40224FD52A00CAE13E /* DataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataHelper.swift; sourceTree = "<group>"; };
+		4A106D43224FE5D100CAE13E /* Fact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fact.swift; sourceTree = "<group>"; };
+		4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		4A697824224AF0FA00B7F780 /* Chuck Norris Facts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chuck Norris Facts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A697827224AF0FA00B7F780 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A697829224AF0FA00B7F780 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +105,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A106D3D224FD50800CAE13E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4A106D40224FD52A00CAE13E /* DataHelper.swift */,
+				4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4A106D42224FE5C400CAE13E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4A106D43224FE5D100CAE13E /* Fact.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		4A69781B224AF0FA00B7F780 = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +147,8 @@
 		4A697826224AF0FA00B7F780 /* Chuck Norris Facts */ = {
 			isa = PBXGroup;
 			children = (
+				4A106D42224FE5C400CAE13E /* Models */,
+				4A106D3D224FD50800CAE13E /* Helpers */,
 				4AAE007C224F051F003FC105 /* Extensions & Subclassing */,
 				4AAE0074224EF9C1003FC105 /* Cells */,
 				4AD05943224B014C00F2776A /* Storyboards */,
@@ -418,6 +443,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Chuck Norris Facts/Pods-Chuck Norris Facts-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/DGCollectionViewLeftAlignFlowLayout/DGCollectionViewLeftAlignFlowLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
@@ -425,6 +452,7 @@
 				"${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework",
 				"${BUILT_PRODUCTS_DIR}/MotionTransitioning/MotionTransitioning.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
@@ -432,6 +460,8 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGCollectionViewLeftAlignFlowLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
@@ -439,6 +469,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionAnimator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionInterchange.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MotionTransitioning.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -456,9 +487,12 @@
 			files = (
 				4AAE0084224F0DA2003FC105 /* SuggestionsCollectionViewCell.swift in Sources */,
 				4AAE0080224F09EB003FC105 /* SearchViewController.swift in Sources */,
+				4A106D48224FE9BE00CAE13E /* NetworkHelper.swift in Sources */,
 				4AAE0078224EFA01003FC105 /* FactsTableViewCell.swift in Sources */,
 				4AAE0082224F0A66003FC105 /* UIViewController+Additions.swift in Sources */,
+				4A106D44224FE5D100CAE13E /* Fact.swift in Sources */,
 				4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */,
+				4A106D41224FD52A00CAE13E /* DataHelper.swift in Sources */,
 				4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */,
 				4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */,
 			);

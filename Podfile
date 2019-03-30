@@ -6,12 +6,13 @@ target 'Chuck Norris Facts' do
   use_frameworks!
 
   # Pods for Chuck Norris Facts
-  #pod 'Alamofire'
   pod 'MaterialComponents'
   #pod 'Realm'
   pod 'DGCollectionViewLeftAlignFlowLayout'
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Alamofire'
+  pod 'AlamofireObjectMapper'
 
   target 'Chuck Norris FactsTests' do
     inherit! :search_paths
