@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Alamofire
 import AlamofireObjectMapper
+import RealmSwift
 
 class HomeViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var initialContainer: UIView!
     
-    // Private Properties
+    // MARK: - Private Contants
     private let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - ViewController Override Functions
@@ -33,7 +34,7 @@ class HomeViewController: UIViewController {
         hideNextTitleButtonNavBar()
         
         // Switch views if empty/initial state
-        DataHelper.shared.state.asObservable().subscribe { (next) in
+        DataHelper.shared.loadingFactsState.asObservable().subscribe { (next) in
             if let state = next.element {
                 self.changeViewAccordingToState(state)
             }
@@ -74,23 +75,21 @@ class HomeViewController: UIViewController {
     }
     
     private func changeViewAccordingToState (_ state: DataHelper.State) {
+        
+        self.hideCenterIndicator()
+        self.initialContainer.isHidden = true
+        self.tableview.isHidden = true
+        
         switch state {
         case .Initial:
             self.initialContainer.isHidden = false
-            self.tableview.isHidden = true
         case .Empty:
-            self.initialContainer.isHidden = true
-            self.tableview.isHidden = true
-            self.hideCenterIndicator()
             self.showAlert(title: "Sorry", message: "There are no results for this search", okFunction: { (_) in
-                DataHelper.shared.state.accept(.Initial)
+                DataHelper.shared.loadingFactsState.accept(.Initial)
             }, cancelFunction: nil)
         case .Loading:
-            self.initialContainer.isHidden = true
-            self.tableview.isHidden = true
             self.showCenterIndicator()
         case .FinishedLoading:
-            self.initialContainer.isHidden = true
             self.tableview.isHidden = false
             self.hideCenterIndicator()
         }

@@ -497,7 +497,15 @@ PODS:
   - MotionInterchange (1.6.0)
   - MotionTransitioning (5.0.0)
   - ObjectMapper (3.3.0)
+  - Realm (3.11.0):
+    - Realm/Headers (= 3.11.0)
+  - Realm/Headers (3.11.0)
+  - RealmSwift (3.11.0):
+    - Realm (= 3.11.0)
   - RxCocoa (4.3.1):
+    - RxSwift (~> 4.0)
+  - RxRealm (0.7.5):
+    - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.3.1)
 
@@ -507,6 +515,7 @@ DEPENDENCIES:
   - DGCollectionViewLeftAlignFlowLayout
   - MaterialComponents
   - RxCocoa
+  - RxRealm
   - RxSwift
 
 SPEC REPOS:
@@ -521,7 +530,10 @@ SPEC REPOS:
     - MotionInterchange
     - MotionTransitioning
     - ObjectMapper
+    - Realm
+    - RealmSwift
     - RxCocoa
+    - RxRealm
     - RxSwift
 
 SPEC CHECKSUMS:
@@ -535,9 +547,12 @@ SPEC CHECKSUMS:
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   MotionTransitioning: 23d25edc2f4606efb922403cbac6d81af37aa33a
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  Realm: 92f09a102692b96a9a10e9617f214f15c5ab85fc
+  RealmSwift: 5f0481cd658bb751c509314b964a35eaa264d2cf
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: 0c52c37d7378bf0cb4f66e1737ba4acfa02c415a
+PODFILE CHECKSUM: fafeb64bb3c7c5b67e79fdf5c3f715d4f15efc0d
 
 COCOAPODS: 1.5.3

@@ -24,7 +24,6 @@ class SearchViewController: UIViewController {
     
     // MARK: - Private Properties
     private var searchTFController:MDCTextInputControllerOutlined!
-    private var suggestions:BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
     private var history:BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
     
     // MARK: - Private Constants
@@ -33,23 +32,23 @@ class SearchViewController: UIViewController {
     // MARK: - View Controller Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        for _ in 0 ..< 8 {
-            let random = Int.random(in: 5 ... 10)
-            var text:String = ""
-            for _ in 0 ..< random {
-               text.append("a")
-            }
-            suggestions.accept(suggestions.value + [text])
-            history.accept(history.value + ["a"])
-        }
-        
-        
+        loadData()
         configureUI()
     }
     
     // MARK: - Private Functions
+    private func loadData() {
+        DataHelper.shared.updateCategories()
+    }
+    
     private func configureUI() {
+        // Switch views if empty/loading state
+        DataHelper.shared.loadingSuggestionsState.asObservable().subscribe { (next) in
+            if let state = next.element {
+                self.changeViewAccordingToState(state)
+            }
+        }.disposed(by: disposeBag)
+        
         // Configure search textfield
         searchTFController = MDCTextInputControllerOutlined(textInput: searchTextField)
         searchTFController.activeColor = UIColor(named: "GreenDefault")
@@ -60,6 +59,7 @@ class SearchViewController: UIViewController {
         history.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element, cell) in
             self.fillHistoryCell(row, element, cell)
             }.disposed(by: disposeBag)
+        
         historyTableView.rx.modelSelected(String.self)
             .subscribe(onNext:  { value in
                 self.onHistoryTapped(value)
@@ -67,16 +67,32 @@ class SearchViewController: UIViewController {
             .disposed(by: disposeBag)
         
         // Configure Suggestions
-        suggestions.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element, cell) in
+        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element:Category, cell) in
             self.fillSuggestionCell(row, element, cell)
         }.disposed(by: disposeBag)
-        suggestionsCollectionView.rx.modelSelected(String.self)
+        
+        suggestionsCollectionView.rx.modelSelected(Category.self)
             .subscribe(onNext:  { value in
                 self.onSuggestionTapped(value)
             })
             .disposed(by: disposeBag)
         suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
+    }
+    
+    private func changeViewAccordingToState (_ state: DataHelper.State) {
+        self.hideCenterIndicator()
+        switch state {
+        case .Initial:
+            print("Never gets here")
+        case .Empty:
+            suggestionsHeightConstraint.constant = 0
+            self.showAlert(title: "Sorry", message: "There are no suggestions available")
+        case .Loading:
+            self.showCenterIndicator()
+        case .FinishedLoading:
+            print("Center indicator already hided")
+        }
     }
     
     // MARK: Table View Support Functions
@@ -92,14 +108,14 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: Collection View Support Functions
-    private func fillSuggestionCell (_ row: Int, _ element: String, _ cell: SuggestionsCollectionViewCell) {
+    private func fillSuggestionCell (_ row: Int, _ element: Category, _ cell: SuggestionsCollectionViewCell) {
         // Fill cell
-        cell.setCategory(suggestions.value[row])
+        cell.setCategory(element.name)
         // Update height constraint so it doesn't create an inside scroll
         suggestionsHeightConstraint.constant = suggestionsCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
     
-    private func onSuggestionTapped(_ string: String) {
+    private func onSuggestionTapped(_ string: Category) {
         print("Collection view tapped")
     }
 }
@@ -115,9 +131,9 @@ extension SearchViewController: UITextFieldDelegate {
 // MARK: - Collection View Layout Delegate Override Functions
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size: CGSize = suggestions.value[indexPath.row].uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
-        size.width += 50 // Adjusting Text Insets
-        size.height = 48 // Apple minimum button height
+        var size: CGSize = DataHelper.shared.categories.value[indexPath.row].name.uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
+        size.width += 45 // Adjusting Text Insets
+        size.height = 30
         return size
     }
 }

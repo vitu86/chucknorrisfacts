@@ -34,7 +34,9 @@ extension UIViewController {
     }
     
     func hideCenterIndicator() {
-        UIApplication.shared.endIgnoringInteractionEvents()
+        if UIApplication.shared.isIgnoringInteractionEvents {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
         let activityIndicator = ActivityIndicator.shared
         activityIndicator.stopAnimating()
         activityIndicator.removeFromSuperview()
