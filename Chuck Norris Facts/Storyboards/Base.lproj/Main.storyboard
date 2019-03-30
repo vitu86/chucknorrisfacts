@@ -49,46 +49,66 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="200" id="zNQ-aV-xQu">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FactsCell" rowHeight="200" id="zNQ-aV-xQu" customClass="FactsTableViewCell" customModule="Chuck_Norris_Facts" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="200"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zNQ-aV-xQu" id="bJ8-Ux-UoX">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-PX-f1I">
-                                                    <rect key="frame" x="40" y="31" width="334" height="75"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcf-PX-f1I">
+                                                    <rect key="frame" x="35" y="26" width="344" height="119.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yRN-sJ-B61">
-                                                    <rect key="frame" x="40" y="126" width="207" height="43"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_check.png" translatesAutoresizingMaskIntoConstraints="NO" id="q4t-By-7hx">
-                                                    <rect key="frame" x="291" y="126" width="83" height="83"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ShareIcon" translatesAutoresizingMaskIntoConstraints="NO" id="q4t-By-7hx">
+                                                    <rect key="frame" x="375" y="160.5" width="24" height="24"/>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="q4t-By-7hx" secondAttribute="height" multiplier="1:1" id="c8W-1r-il5"/>
+                                                        <constraint firstAttribute="width" constant="24" id="dGB-ah-R1h"/>
+                                                        <constraint firstAttribute="height" constant="24" id="rGH-BY-DFc"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woH-4R-Xwb" customClass="EdgeInsetLabel" customModule="Chuck_Norris_Facts" customModuleProvider="target">
+                                                    <rect key="frame" x="35" y="152.5" width="132" height="21.5"/>
+                                                    <color key="backgroundColor" red="0.13994982650000001" green="0.38895406700000001" blue="0.18157611130000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="leftTextInset">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="rightTextInset">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="topTextInset">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="bottomTextInset">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="yRN-sJ-B61" firstAttribute="leading" secondItem="bJ8-Ux-UoX" secondAttribute="leadingMargin" constant="20" id="4yd-6M-cly"/>
-                                                <constraint firstItem="bcf-PX-f1I" firstAttribute="top" secondItem="bJ8-Ux-UoX" secondAttribute="topMargin" constant="20" id="BPw-wg-dt7"/>
-                                                <constraint firstItem="yRN-sJ-B61" firstAttribute="top" secondItem="bcf-PX-f1I" secondAttribute="bottom" constant="20" id="LY7-IL-NcG"/>
-                                                <constraint firstItem="q4t-By-7hx" firstAttribute="width" secondItem="bJ8-Ux-UoX" secondAttribute="width" multiplier="0.2" id="OVK-dz-aJ9"/>
-                                                <constraint firstItem="q4t-By-7hx" firstAttribute="top" secondItem="bcf-PX-f1I" secondAttribute="bottom" constant="20" id="PZN-FM-vWi"/>
-                                                <constraint firstItem="q4t-By-7hx" firstAttribute="bottom" secondItem="bJ8-Ux-UoX" secondAttribute="bottomMargin" constant="20" id="Yka-Uq-iu7"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="bcf-PX-f1I" secondAttribute="trailing" constant="20" id="fKU-9J-0sr"/>
-                                                <constraint firstItem="yRN-sJ-B61" firstAttribute="width" secondItem="bJ8-Ux-UoX" secondAttribute="width" multiplier="0.5" id="gkI-Si-rGV"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="yRN-sJ-B61" secondAttribute="bottom" constant="20" id="utb-0x-yee"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="q4t-By-7hx" secondAttribute="trailing" constant="20" id="xZP-O0-VZs"/>
-                                                <constraint firstItem="bcf-PX-f1I" firstAttribute="leading" secondItem="bJ8-Ux-UoX" secondAttribute="leadingMargin" constant="20" id="zHU-zq-l4x"/>
+                                                <constraint firstAttribute="trailing" secondItem="q4t-By-7hx" secondAttribute="trailing" constant="15" id="1aO-TO-hid"/>
+                                                <constraint firstAttribute="bottom" secondItem="q4t-By-7hx" secondAttribute="bottom" constant="15" id="7RC-fY-gFA"/>
+                                                <constraint firstItem="woH-4R-Xwb" firstAttribute="leading" secondItem="bJ8-Ux-UoX" secondAttribute="leadingMargin" constant="15" id="8uy-O3-ddF"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="woH-4R-Xwb" secondAttribute="bottom" constant="15" id="Hqy-6D-7g3"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bcf-PX-f1I" secondAttribute="trailing" constant="15" id="Ixa-8d-QFg"/>
+                                                <constraint firstItem="bcf-PX-f1I" firstAttribute="leading" secondItem="bJ8-Ux-UoX" secondAttribute="leadingMargin" constant="15" id="M6V-sO-Ar9"/>
+                                                <constraint firstItem="woH-4R-Xwb" firstAttribute="top" secondItem="bcf-PX-f1I" secondAttribute="bottomMargin" constant="15" id="Sc3-nd-hg2"/>
+                                                <constraint firstItem="bcf-PX-f1I" firstAttribute="top" secondItem="bJ8-Ux-UoX" secondAttribute="topMargin" constant="15" id="aym-oW-nMe"/>
+                                                <constraint firstItem="q4t-By-7hx" firstAttribute="top" secondItem="bcf-PX-f1I" secondAttribute="bottom" constant="15" id="b8c-42-fkd"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="woH-4R-Xwb" secondAttribute="trailing" constant="15" id="ztx-b5-onE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="categoryLabel" destination="woH-4R-Xwb" id="C4L-xa-74x"/>
+                                            <outlet property="factLabel" destination="bcf-PX-f1I" id="0Bf-n9-CNw"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -110,6 +130,9 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableview" destination="NK7-EF-ock" id="I3a-Bf-0Br"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -124,7 +147,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" translucent="NO" id="7Gr-HU-fEL">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.031372549020000001" green="0.1019607843" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.22352941176470587" green="0.68235294117647061" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -143,6 +166,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_check.png" width="24" height="24"/>
+        <image name="ShareIcon" width="24" height="24"/>
     </resources>
 </document>

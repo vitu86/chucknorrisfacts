@@ -14,6 +14,8 @@
 		4A697832224AF10800B7F780 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A697830224AF10800B7F780 /* LaunchScreen.storyboard */; };
 		4A69783D224AF10800B7F780 /* Chuck_Norris_FactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A69783C224AF10800B7F780 /* Chuck_Norris_FactsTests.swift */; };
 		4A697848224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697847224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift */; };
+		4AAE0078224EFA01003FC105 /* FactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE0077224EFA01003FC105 /* FactsTableViewCell.swift */; };
+		4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE007D224F0538003FC105 /* EdgeInsetLabel.swift */; };
 		935F8BCD50B22D8599768391 /* Pods_Chuck_Norris_FactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */; };
 		CAD1D9402023CF59B53690E1 /* Pods_Chuck_Norris_Facts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85362BF3E295FDADE3A3293 /* Pods_Chuck_Norris_Facts.framework */; };
 		FE47BD20346455783B08EB5D /* Pods_Chuck_Norris_FactsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */; };
@@ -51,6 +53,8 @@
 		4A697843224AF10800B7F780 /* Chuck Norris FactsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Norris FactsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A697847224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chuck_Norris_FactsUITests.swift; sourceTree = "<group>"; };
 		4A697849224AF10800B7F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AAE0077224EFA01003FC105 /* FactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsTableViewCell.swift; sourceTree = "<group>"; };
+		4AAE007D224F0538003FC105 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		4AD0C7D34018F05871064080 /* Pods-Chuck Norris Facts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris Facts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris Facts/Pods-Chuck Norris Facts.release.xcconfig"; sourceTree = "<group>"; };
 		51116F5944E847466E2ACEE5 /* Pods-Chuck Norris FactsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris FactsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris FactsUITests/Pods-Chuck Norris FactsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chuck_Norris_FactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +118,8 @@
 		4A697826224AF0FA00B7F780 /* Chuck Norris Facts */ = {
 			isa = PBXGroup;
 			children = (
+				4AAE007C224F051F003FC105 /* Extensions & Subclassing */,
+				4AAE0074224EF9C1003FC105 /* Cells */,
 				4AD05943224B014C00F2776A /* Storyboards */,
 				4AD05942224B013100F2776A /* ViewControllers */,
 				4A697827224AF0FA00B7F780 /* AppDelegate.swift */,
@@ -139,6 +145,22 @@
 				4A697849224AF10800B7F780 /* Info.plist */,
 			);
 			path = "Chuck Norris FactsUITests";
+			sourceTree = "<group>";
+		};
+		4AAE0074224EF9C1003FC105 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4AAE0077224EFA01003FC105 /* FactsTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4AAE007C224F051F003FC105 /* Extensions & Subclassing */ = {
+			isa = PBXGroup;
+			children = (
+				4AAE007D224F0538003FC105 /* EdgeInsetLabel.swift */,
+			);
+			path = "Extensions & Subclassing";
 			sourceTree = "<group>";
 		};
 		4AD05942224B013100F2776A /* ViewControllers */ = {
@@ -421,8 +443,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AAE0078224EFA01003FC105 /* FactsTableViewCell.swift in Sources */,
 				4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */,
 				4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */,
+				4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +632,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cc.vitorcosta.Chuck-Norris-Facts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -627,7 +651,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cc.vitorcosta.Chuck-Norris-Facts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
