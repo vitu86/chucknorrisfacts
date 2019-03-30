@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableview: UITableView!
+    
+    // Private Properties
+    private var facts: BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
+    private let disposeBag: DisposeBag = DisposeBag()
     
     // MARK: - ViewController Override Functions
     override func viewDidLoad() {
@@ -21,36 +27,38 @@ class HomeViewController: UIViewController {
     
     // MARK: - Private Functions
     private func configureUI() {
-        tableview.dataSource = self
-        tableview.delegate = self
+        // Fill temp content
+        for _ in 0 ..< 4 {
+            facts.accept(facts.value + ["a"])
+        }
         
-        hideNextTitleButtonNavBar()
-    }
-}
-
-// MARK: - Table View Override Functions
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        // Observable to get cells
+        facts.asObservable()
+            .bind(to: tableview.rx.items(cellIdentifier: "FactsCell", cellType: FactsTableViewCell.self)) { (row, element, cell) in
+                self.fillCell(row: row, element: element, cell: cell)
+            }
+            .disposed(by: disposeBag)
+        
+        // Function called when item selected
+        tableview.rx
+            .modelSelected(String.self)
+            .subscribe(onNext:  { value in
+                self.shareURL(value)
+            })
+            .disposed(by: disposeBag)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FactsCell") as! FactsTableViewCell
-        
-        let rand = Int.random(in: 60 ... 490)
+    private func fillCell (row: Int, element: String, cell: FactsTableViewCell) {
+        let rand = Int.random(in: 60 ... 90)
         var text:String = ""
-        
         for _ in 0 ..< rand {
             text += "a"
         }
-        
         cell.setFact(text)
         cell.setCategory("category")
-        
-        return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    private func shareURL(_ url: String) {
         guard let url = URL(string: "http://www.google.com") else {
             return
         }

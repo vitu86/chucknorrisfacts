@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.7.3)
   - DGCollectionViewLeftAlignFlowLayout (1.0.4)
   - MaterialComponents (67.0.0):
     - MaterialComponents/ActivityIndicator (= 67.0.0)
@@ -493,19 +492,18 @@ PODS:
     - MotionInterchange (~> 1.6)
   - MotionInterchange (1.6.0)
   - MotionTransitioning (5.0.0)
-  - Realm (3.11.0):
-    - Realm/Headers (= 3.11.0)
-  - Realm/Headers (3.11.0)
+  - RxCocoa (4.3.1):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.3.1)
 
 DEPENDENCIES:
-  - Alamofire
   - DGCollectionViewLeftAlignFlowLayout
   - MaterialComponents
-  - Realm
+  - RxCocoa
+  - RxSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Alamofire
     - DGCollectionViewLeftAlignFlowLayout
     - MaterialComponents
     - MDFInternationalization
@@ -513,10 +511,10 @@ SPEC REPOS:
     - MotionAnimator
     - MotionInterchange
     - MotionTransitioning
-    - Realm
+    - RxCocoa
+    - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   DGCollectionViewLeftAlignFlowLayout: a0fa58797373ded039cafba8133e79373d048399
   MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
   MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
@@ -524,8 +522,9 @@ SPEC CHECKSUMS:
   MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
   MotionTransitioning: 23d25edc2f4606efb922403cbac6d81af37aa33a
-  Realm: 92f09a102692b96a9a10e9617f214f15c5ab85fc
+  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: 5b211277278da13417f0725dd42dcd00a9ecfd3f
+PODFILE CHECKSUM: d317c6165bd4fed8fa57ff9f9ee0265dc4317cd3
 
 COCOAPODS: 1.5.3
