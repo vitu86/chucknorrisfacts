@@ -4,15 +4,11 @@ A way to find some Chuck Norris Facts. Enjoy it!
 ## How it works?
 User can search for facts using an input text, a suggestion showed as tag cloud or the search history.
 
----
-
 ## How to run:
 1. You can [clone](https://help.github.com/en/articles/cloning-a-repository) or [download](https://stackoverflow.com/questions/6466945/fastest-way-to-download-a-github-project) the repository
 2. [Install CocoaPods on your machine](https://guides.cocoapods.org/using/getting-started.html) (Just if your don't have it yet)
 3. Run `pod install` in the project folder
 4. You're free to run
-
----
 
 ## Detailed explanation
 #### There are two screens on the project:
