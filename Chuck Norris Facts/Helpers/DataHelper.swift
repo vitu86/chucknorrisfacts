@@ -20,6 +20,7 @@ class DataHelper {
         case Empty
         case Loading
         case FinishedLoading
+        case Error
     }
     
     // MARK: - Public Properties
@@ -28,6 +29,7 @@ class DataHelper {
     var facts:BehaviorRelay<[Fact]> = BehaviorRelay<[Fact]>(value: [])
     var categories:BehaviorRelay<[Category]> = BehaviorRelay<[Category]>(value: [])
     var histories:BehaviorRelay<[History]> = BehaviorRelay<[History]>(value: [])
+    var loadingError:String? = nil
     
     
     // MARK: - Private Properties
@@ -40,13 +42,18 @@ class DataHelper {
     // MARK: Public Functions
     func updateFacts(with query: String) {
         loadingFactsState.accept(.Loading)
-        NetworkHelper.shared.getFacts(with: query) { (result) in
-            self.facts.accept(result)
-            if result.isEmpty {
-                self.loadingFactsState.accept(.Empty)
+        NetworkHelper.shared.getFacts(with: query) { (result, error) in
+            if let error = error {
+                self.loadingError = error
+                self.loadingFactsState.accept(.Error)
             } else {
-                self.loadingFactsState.accept(.FinishedLoading)
-                DatabaseHelper.shared.saveHistory(query)
+                self.facts.accept(result)
+                if result.isEmpty {
+                    self.loadingFactsState.accept(.Empty)
+                } else {
+                    self.loadingFactsState.accept(.FinishedLoading)
+                    DatabaseHelper.shared.saveHistory(query)
+                }
             }
         }
     }
@@ -58,13 +65,18 @@ class DataHelper {
         
         if categories.value.isEmpty {
             // If there's no cateogries on database, load from web
-            NetworkHelper.shared.getCategories { (cats) in
-                let categories = DatabaseHelper.shared.saveCategories(cats)
-                self.categories.accept(categories)
-                if self.categories.value.isEmpty {
-                    self.loadingSuggestionsState.accept(.Empty)
+            NetworkHelper.shared.getCategories { (cats, error) in
+                if let error = error {
+                    self.loadingError = error
+                    self.loadingSuggestionsState.accept(.Error)
                 } else {
-                    self.loadingSuggestionsState.accept(.FinishedLoading)
+                    let categories = DatabaseHelper.shared.saveCategories(cats)
+                    self.categories.accept(categories)
+                    if self.categories.value.isEmpty {
+                        self.loadingSuggestionsState.accept(.Empty)
+                    } else {
+                        self.loadingSuggestionsState.accept(.FinishedLoading)
+                    }
                 }
             }
         } else {

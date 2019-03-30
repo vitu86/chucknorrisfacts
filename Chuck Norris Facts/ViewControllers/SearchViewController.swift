@@ -65,10 +65,15 @@ class SearchViewController: UIViewController {
     private func changeViewAccordingToState (_ state: DataHelper.State) {
         self.hideCenterIndicator()
         if state == .Empty {
-            suggestionsHeightConstraint.constant = 0
             self.showAlert(title: "Sorry", message: "There are no suggestions available")
         } else if state == .Loading {
             self.showCenterIndicator()
+        } else if state == .Error {
+            if let error = DataHelper.shared.loadingError {
+                self.showAlert(title: "Error", message: error, okFunction: { (_) in
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
         }
     }
     

@@ -91,6 +91,12 @@ class HomeViewController: UIViewController {
         case .FinishedLoading:
             self.tableview.isHidden = false
             self.hideCenterIndicator()
+        case .Error:
+            if let error = DataHelper.shared.loadingError {
+                self.showAlert(title: "Error", message: error, okFunction: { (_) in
+                    DataHelper.shared.loadingFactsState.accept(.Initial)
+                }, cancelFunction: nil)
+            }
         }
     }
 }

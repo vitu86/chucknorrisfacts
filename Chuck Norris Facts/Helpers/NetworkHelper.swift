@@ -20,22 +20,22 @@ class NetworkHelper {
     private init() {
     }
     
-    func getFacts(with search: String, onComplete: @escaping ([Fact]) -> Void) {
+    func getFacts(with search: String, onComplete: @escaping ([Fact], String?) -> Void) {
         Alamofire.request("\(baseURL)/search?query=\(search)").responseArray(keyPath: "result") { (response: DataResponse<[Fact]>) in
             if let result = response.result.value {
-                onComplete(result)
+                onComplete(result, nil)
             } else {
-                onComplete([])
+                onComplete([], response.result.error?.localizedDescription)
             }
         }
     }
     
-    func getCategories(onComplete: @escaping ([String]) -> Void) {
+    func getCategories(onComplete: @escaping ([String], String?) -> Void) {
         Alamofire.request("\(baseURL)/categories").responseJSON { (response) in
             if let categories = response.result.value as? [String] {
-                onComplete(categories)
+                onComplete(categories, nil)
             } else {
-                onComplete([])
+                onComplete([], response.result.error?.localizedDescription)
             }
         }
     }
