@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
+  - DGCollectionViewLeftAlignFlowLayout (1.0.4)
   - MaterialComponents (67.0.0):
     - MaterialComponents/ActivityIndicator (= 67.0.0)
     - "MaterialComponents/ActivityIndicator+ColorThemer (= 67.0.0)"
@@ -498,12 +499,14 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - DGCollectionViewLeftAlignFlowLayout
   - MaterialComponents
   - Realm
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - DGCollectionViewLeftAlignFlowLayout
     - MaterialComponents
     - MDFInternationalization
     - MDFTextAccessibility
@@ -514,6 +517,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  DGCollectionViewLeftAlignFlowLayout: a0fa58797373ded039cafba8133e79373d048399
   MaterialComponents: ba0b153b1fa427be83aad80b05784b2cfecec847
   MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
   MDFTextAccessibility: 94098925e0853551c5a311ce7c1ecefbe297cdb6
@@ -522,6 +526,6 @@ SPEC CHECKSUMS:
   MotionTransitioning: 23d25edc2f4606efb922403cbac6d81af37aa33a
   Realm: 92f09a102692b96a9a10e9617f214f15c5ab85fc
 
-PODFILE CHECKSUM: 392fc99cb6d2a239562db86f0fc0d44db429d848
+PODFILE CHECKSUM: 5b211277278da13417f0725dd42dcd00a9ecfd3f
 
 COCOAPODS: 1.5.3

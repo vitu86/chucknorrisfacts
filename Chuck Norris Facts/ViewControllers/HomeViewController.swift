@@ -23,9 +23,12 @@ class HomeViewController: UIViewController {
     private func configureUI() {
         tableview.dataSource = self
         tableview.delegate = self
+        
+        hideNextTitleButtonNavBar()
     }
 }
 
+// MARK: - Table View Override Functions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20

@@ -9,6 +9,7 @@ target 'Chuck Norris Facts' do
   pod 'Alamofire'
   pod 'MaterialComponents'
   pod 'Realm'
+  pod 'DGCollectionViewLeftAlignFlowLayout'
 
   target 'Chuck Norris FactsTests' do
     inherit! :search_paths
