@@ -10,9 +10,15 @@ import RealmSwift
 
 class History : Object {
     @objc dynamic var value: String = ""
+    @objc dynamic var date: Date = Date()
     
     convenience init(_ value: String) {
         self.init()
         self.value = value
+        self.date = Date()
+    }
+    
+    override static func primaryKey() -> String? {
+        return "value"
     }
 }

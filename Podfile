@@ -12,7 +12,8 @@ target 'Chuck Norris Facts' do
   pod 'RxCocoa'
   pod 'Alamofire'
   pod 'AlamofireObjectMapper'
-  pod 'RxRealm'
+  pod 'Realm'
+  pod 'RealmSwift'
 
   target 'Chuck Norris FactsTests' do
     inherit! :search_paths

@@ -24,7 +24,6 @@ class SearchViewController: UIViewController {
     
     // MARK: - Private Properties
     private var searchTFController:MDCTextInputControllerOutlined!
-    private var history:BehaviorRelay<[String]> = BehaviorRelay<[String]>(value: []) // Temp while have no model
     
     // MARK: - Private Constants
     private let disposeBag:DisposeBag = DisposeBag()
@@ -39,6 +38,7 @@ class SearchViewController: UIViewController {
     // MARK: - Private Functions
     private func loadData() {
         DataHelper.shared.updateCategories()
+        DataHelper.shared.updateHistory()
     }
     
     private func configureUI() {
@@ -56,18 +56,18 @@ class SearchViewController: UIViewController {
         searchTextField.delegate = self
         
         // Configure History
-        history.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element, cell) in
+        DataHelper.shared.histories.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element: History, cell) in
             self.fillHistoryCell(row, element, cell)
             }.disposed(by: disposeBag)
         
-        historyTableView.rx.modelSelected(String.self)
+        historyTableView.rx.modelSelected(History.self)
             .subscribe(onNext:  { value in
                 self.onHistoryTapped(value)
             })
             .disposed(by: disposeBag)
         
         // Configure Suggestions
-        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element:Category, cell) in
+        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element: Category, cell) in
             self.fillSuggestionCell(row, element, cell)
         }.disposed(by: disposeBag)
         
@@ -76,6 +76,7 @@ class SearchViewController: UIViewController {
                 self.onSuggestionTapped(value)
             })
             .disposed(by: disposeBag)
+        
         suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
     }
@@ -91,15 +92,16 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: Table View Support Functions
-    private func fillHistoryCell (_ row: Int, _ element: String, _ cell: UITableViewCell) {
+    private func fillHistoryCell (_ row: Int, _ element: History, _ cell: UITableViewCell) {
         // Fill cell
-        cell.textLabel?.text = "Teste \(row)"
+        cell.textLabel?.text = element.value
         // Update height constraint so it doesn't create an inside scroll
         historyHeightConstraint.constant = historyTableView.contentSize.height
     }
     
-    private func onHistoryTapped(_ string: String) {
-        print("Table view tapped")
+    private func onHistoryTapped(_ history: History) {
+        DataHelper.shared.updateFacts(with: history.value)
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: Collection View Support Functions
@@ -110,8 +112,9 @@ class SearchViewController: UIViewController {
         suggestionsHeightConstraint.constant = suggestionsCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
     
-    private func onSuggestionTapped(_ string: Category) {
-        print("Collection view tapped")
+    private func onSuggestionTapped(_ category: Category) {
+        DataHelper.shared.updateFacts(with: category.name)
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -119,6 +122,14 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        if let search = textField.text {
+            if search.isEmpty {
+                showAlert(title: "Hey!", message: "Are you searching for nothing?")
+            } else {
+                DataHelper.shared.updateFacts(with: search)
+                navigationController?.popViewController(animated: true)
+            }
+        }
         return true
     }
 }

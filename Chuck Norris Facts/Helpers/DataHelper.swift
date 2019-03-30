@@ -27,6 +27,7 @@ class DataHelper {
     var loadingSuggestionsState:BehaviorRelay<State> = BehaviorRelay<State>(value: .Initial)
     var facts:BehaviorRelay<[Fact]> = BehaviorRelay<[Fact]>(value: [])
     var categories:BehaviorRelay<[Category]> = BehaviorRelay<[Category]>(value: [])
+    var histories:BehaviorRelay<[History]> = BehaviorRelay<[History]>(value: [])
     
     
     // MARK: - Private Properties
@@ -52,29 +53,13 @@ class DataHelper {
     func updateCategories() {
         loadingSuggestionsState.accept(.Loading)
         
-        if let realm = try? Realm() {
-            var categs:[Category] = realm.objects(Category.self).map{$0}
-            categs.shuffle()
-            categories.accept(Array(categs.prefix(8)))
-        }
+        categories.accept(DatabaseHelper.shared.getCategories())
         
         if categories.value.isEmpty {
+            // If there's no cateogries on database, load from web
             NetworkHelper.shared.getCategories { (cats) in
-                var realmCategories = cats.map({ (item) -> Category in
-                    return Category(item)
-                })
-                
-                if let realm = try? Realm() {
-                    try! realm.write {
-                        for item in realmCategories {
-                            realm.add(item)
-                        }
-                    }
-                }
-                
-                realmCategories.shuffle()
-                self.categories.accept(Array(realmCategories.prefix(8)))
-                
+                let categories = DatabaseHelper.shared.saveCategories(cats)
+                self.categories.accept(categories)
                 if self.categories.value.isEmpty {
                     self.loadingSuggestionsState.accept(.Empty)
                 } else {
@@ -84,5 +69,9 @@ class DataHelper {
         } else {
             loadingSuggestionsState.accept(.FinishedLoading)
         }
+    }
+    
+    func updateHistory() {
+        histories.accept(DatabaseHelper.shared.getHistories())
     }
 }

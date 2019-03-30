@@ -12,6 +12,7 @@
 		4A106D48224FE9BE00CAE13E /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */; };
 		4A106D4C224FFE1C00CAE13E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4B224FFE1C00CAE13E /* Category.swift */; };
 		4A106D4E2250128000CAE13E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4D2250128000CAE13E /* History.swift */; };
+		4A106D502250134F00CAE13E /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4F2250134F00CAE13E /* DatabaseHelper.swift */; };
 		4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697827224AF0FA00B7F780 /* AppDelegate.swift */; };
 		4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697829224AF0FA00B7F780 /* HomeViewController.swift */; };
 		4A69782D224AF0FA00B7F780 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A69782B224AF0FA00B7F780 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		4A106D4B224FFE1C00CAE13E /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4A106D4D2250128000CAE13E /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		4A106D4F2250134F00CAE13E /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		4A697824224AF0FA00B7F780 /* Chuck Norris Facts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chuck Norris Facts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A697827224AF0FA00B7F780 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A697829224AF0FA00B7F780 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				4A106D40224FD52A00CAE13E /* DataHelper.swift */,
 				4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */,
+				4A106D4F2250134F00CAE13E /* DatabaseHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -462,7 +465,6 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -482,7 +484,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +510,7 @@
 				4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */,
 				4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */,
 				4A106D4C224FFE1C00CAE13E /* Category.swift in Sources */,
+				4A106D502250134F00CAE13E /* DatabaseHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

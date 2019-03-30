@@ -24,6 +24,7 @@ class NetworkHelper {
         Alamofire.request("\(baseURL)/search?query=\(search)").responseArray(keyPath: "result") { (response: DataResponse<[Fact]>) in
             if let result = response.result.value {
                 onComplete(result)
+                DatabaseHelper.shared.saveHistory(search)
             } else {
                 onComplete([])
             }
