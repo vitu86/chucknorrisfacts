@@ -49,13 +49,31 @@ class SearchViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
+        configureSearchTextField()
+        configureHistoryTableView()
+        configureSuggestionsCollectionView()
+    }
+    
+    private func configureSearchTextField() {
         // Configure search textfield
         searchTFController = MDCTextInputControllerOutlined(textInput: searchTextField)
         searchTFController.activeColor = UIColor(named: "GreenDefault")
         searchTFController.floatingPlaceholderActiveColor = UIColor(named: "GreenDefault")
         searchTextField.delegate = self
-        
-        // Configure History
+    }
+    
+    private func changeViewAccordingToState (_ state: DataHelper.State) {
+        self.hideCenterIndicator()
+        if state == .Empty {
+            suggestionsHeightConstraint.constant = 0
+            self.showAlert(title: "Sorry", message: "There are no suggestions available")
+        } else if state == .Loading {
+            self.showCenterIndicator()
+        }
+    }
+    
+    // MARK: Table View Support Functions
+    private func configureHistoryTableView() {
         // Bind table view with data
         DataHelper.shared.histories.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element: History, cell) in
             self.fillHistoryCell(row, element, cell)
@@ -73,36 +91,9 @@ class SearchViewController: UIViewController {
             if let indexPath = $0.element {
                 DataHelper.shared.deleteHistory(at: indexPath)
             }
-        }.disposed(by: disposeBag)
-        
-        // Configure Suggestions
-        // Bind collectionview to data
-        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element: Category, cell) in
-            self.fillSuggestionCell(row, element, cell)
-        }.disposed(by: disposeBag)
-        
-        // Did select item function
-        suggestionsCollectionView.rx.modelSelected(Category.self)
-            .subscribe(onNext:  { value in
-                self.onSuggestionTapped(value)
-            })
-            .disposed(by: disposeBag)
-        // Delegates to left flow layout and item size
-        suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
-        suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
+            }.disposed(by: disposeBag)
     }
     
-    private func changeViewAccordingToState (_ state: DataHelper.State) {
-        self.hideCenterIndicator()
-        if state == .Empty {
-            suggestionsHeightConstraint.constant = 0
-            self.showAlert(title: "Sorry", message: "There are no suggestions available")
-        } else if state == .Loading {
-            self.showCenterIndicator()
-        }
-    }
-    
-    // MARK: Table View Support Functions
     private func fillHistoryCell (_ row: Int, _ element: History, _ cell: UITableViewCell) {
         // Fill cell
         cell.textLabel?.text = element.value
@@ -116,6 +107,23 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: Collection View Support Functions
+    private func configureSuggestionsCollectionView() {
+        // Bind collectionview to data
+        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element: Category, cell) in
+            self.fillSuggestionCell(row, element, cell)
+            }.disposed(by: disposeBag)
+        
+        // Did select item function
+        suggestionsCollectionView.rx.modelSelected(Category.self)
+            .subscribe(onNext:  { value in
+                self.onSuggestionTapped(value)
+            })
+            .disposed(by: disposeBag)
+        // Delegates to left flow layout and item size
+        suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
+    }
+    
     private func fillSuggestionCell (_ row: Int, _ element: Category, _ cell: SuggestionsCollectionViewCell) {
         // Fill cell
         cell.setCategory(element.name)
