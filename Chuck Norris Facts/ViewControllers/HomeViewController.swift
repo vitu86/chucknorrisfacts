@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 import Alamofire
 import AlamofireObjectMapper
-import RealmSwift
 
 class HomeViewController: UIViewController {
     

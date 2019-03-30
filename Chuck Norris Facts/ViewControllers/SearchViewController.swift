@@ -82,16 +82,11 @@ class SearchViewController: UIViewController {
     
     private func changeViewAccordingToState (_ state: DataHelper.State) {
         self.hideCenterIndicator()
-        switch state {
-        case .Initial:
-            print("Never gets here")
-        case .Empty:
+        if state == .Empty {
             suggestionsHeightConstraint.constant = 0
             self.showAlert(title: "Sorry", message: "There are no suggestions available")
-        case .Loading:
+        } else if state == .Loading {
             self.showCenterIndicator()
-        case .FinishedLoading:
-            print("Center indicator already hided")
         }
     }
     

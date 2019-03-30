@@ -9,7 +9,6 @@
 import RxCocoa
 import RxSwift
 import RealmSwift
-import RxRealm
 
 class DataHelper {
     // MARK: - STATIC OBJECT REFERENCE
@@ -24,10 +23,11 @@ class DataHelper {
     }
     
     // MARK: - Public Properties
-    var facts:BehaviorRelay<[Fact]> = BehaviorRelay<[Fact]>(value: [])
     var loadingFactsState:BehaviorRelay<State> = BehaviorRelay<State>(value: .Initial)
     var loadingSuggestionsState:BehaviorRelay<State> = BehaviorRelay<State>(value: .Initial)
+    var facts:BehaviorRelay<[Fact]> = BehaviorRelay<[Fact]>(value: [])
     var categories:BehaviorRelay<[Category]> = BehaviorRelay<[Category]>(value: [])
+    
     
     // MARK: - Private Properties
     private let disposeBag:DisposeBag = DisposeBag()
@@ -53,7 +53,7 @@ class DataHelper {
         loadingSuggestionsState.accept(.Loading)
         
         if let realm = try? Realm() {
-            var categs = realm.objects(Category.self).toArray()
+            var categs:[Category] = realm.objects(Category.self).map{$0}
             categs.shuffle()
             categories.accept(Array(categs.prefix(8)))
         }
@@ -64,7 +64,14 @@ class DataHelper {
                     return Category(item)
                 })
                 
-                Observable.from(optional: realmCategories).subscribe(Realm.rx.add()).disposed(by: self.disposeBag)
+                if let realm = try? Realm() {
+                    try! realm.write {
+                        for item in realmCategories {
+                            realm.add(item)
+                        }
+                    }
+                }
+                
                 realmCategories.shuffle()
                 self.categories.accept(Array(realmCategories.prefix(8)))
                 
