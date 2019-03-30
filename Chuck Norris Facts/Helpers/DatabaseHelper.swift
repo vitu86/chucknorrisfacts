@@ -63,11 +63,12 @@ class DatabaseHelper {
         }
     }
     
-    func deleteHistory(_ history:History) {
+    func deleteHistory(_ history:History)  -> [History] {
         if let realm = try? Realm() {
             try! realm.write {
                 realm.delete(history)
             }
         }
+        return getHistories()
     }
 }

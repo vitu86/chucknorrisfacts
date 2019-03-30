@@ -46,6 +46,7 @@ class DataHelper {
                 self.loadingFactsState.accept(.Empty)
             } else {
                 self.loadingFactsState.accept(.FinishedLoading)
+                DatabaseHelper.shared.saveHistory(query)
             }
         }
     }
@@ -73,5 +74,10 @@ class DataHelper {
     
     func updateHistory() {
         histories.accept(DatabaseHelper.shared.getHistories())
+    }
+    
+    func deleteHistory(at indexPath: IndexPath) {
+        let historyToDelete = histories.value[indexPath.row]
+        histories.accept(DatabaseHelper.shared.deleteHistory(historyToDelete))
     }
 }
