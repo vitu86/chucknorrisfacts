@@ -12,6 +12,9 @@ import MaterialComponents
 import DGCollectionViewLeftAlignFlowLayout
 import RxSwift
 import RxCocoa
+import RxRealm
+import RealmSwift
+import Realm
 
 class SearchViewController: UIViewController {
     
@@ -31,24 +34,11 @@ class SearchViewController: UIViewController {
     // MARK: - View Controller Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
         configureUI()
     }
     
     // MARK: - Private Functions
-    private func loadData() {
-        DataHelper.shared.updateCategories()
-        DataHelper.shared.updateHistory()
-    }
-    
     private func configureUI() {
-        // Switch views if empty/loading state
-        DataHelper.shared.loadingSuggestionsState.asObservable().subscribe { (next) in
-            if let state = next.element {
-                self.changeViewAccordingToState(state)
-            }
-        }.disposed(by: disposeBag)
-        
         configureSearchTextField()
         configureHistoryTableView()
         configureSuggestionsCollectionView()
@@ -62,26 +52,11 @@ class SearchViewController: UIViewController {
         searchTextField.delegate = self
     }
     
-    private func changeViewAccordingToState (_ state: DataHelper.State) {
-        self.hideCenterIndicator()
-        if state == .Empty {
-            self.showAlert(title: "Sorry", message: "There are no suggestions available")
-        } else if state == .Loading {
-            self.showCenterIndicator()
-        } else if state == .Error {
-            if let error = DataHelper.shared.loadingError {
-                self.showAlert(title: "Error", message: error, okFunction: { (_) in
-                    self.navigationController?.popViewController(animated: true)
-                })
-            }
-        }
-    }
-    
     // MARK: Table View Support Functions
     private func configureHistoryTableView() {
         // Bind table view with data
         DataHelper.shared.histories.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element: History, cell) in
-            self.fillHistoryCell(row, element, cell)
+            self.fillHistoryCell(element, cell)
             }.disposed(by: disposeBag)
         
         // Did select item function
@@ -99,7 +74,7 @@ class SearchViewController: UIViewController {
             }.disposed(by: disposeBag)
     }
     
-    private func fillHistoryCell (_ row: Int, _ element: History, _ cell: UITableViewCell) {
+    private func fillHistoryCell (_ element: History, _ cell: UITableViewCell) {
         // Fill cell
         cell.textLabel?.text = element.value
         // Update height constraint so it doesn't create an inside scroll
@@ -127,6 +102,9 @@ class SearchViewController: UIViewController {
         // Delegates to left flow layout and item size
         suggestionsCollectionView.rx.setDelegate(self).disposed(by: disposeBag)
         suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
+        
+        // Shuffle suggestions
+        DataHelper.shared.shuffleSuggestions()
     }
     
     private func fillSuggestionCell (_ row: Int, _ element: Category, _ cell: SuggestionsCollectionViewCell) {

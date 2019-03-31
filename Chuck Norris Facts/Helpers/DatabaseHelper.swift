@@ -8,11 +8,17 @@
 
 import RealmSwift
 import Realm
+import RxRealm
+import RxCocoa
+import RxSwift
 
 class DatabaseHelper {
     
     // MARK: - STATIC OBJECT REFERENCE
     static let shared:DatabaseHelper = DatabaseHelper()
+    
+    // MARK: - Private constants
+    private let disposeBag:DisposeBag = DisposeBag()
     
     // private init for override purpose
     private init() {
@@ -29,46 +35,36 @@ class DatabaseHelper {
         return categories
     }
     
-    func saveCategories(_ categories:[String]) -> [Category] {
+    func saveCategories(_ categories:[String]) -> [Category]{
         let realmCategories = categories.map({ (item) -> Category in
             return Category(item)
         })
         
-        if let realm = try? Realm() {
-            try! realm.write {
-                for item in realmCategories {
-                    realm.add(item, update: true)
-                }
-            }
-        }
+        Observable.from(optional: realmCategories)
+            .subscribe(Realm.rx.add()).disposed(by: disposeBag)
         
         return getCategories()
     }
     
     // MARK: - History Functions
-    func getHistories() -> [History] {
-        var histories:[History] = []
-        if let realm = try? Realm() {
-            histories = realm.objects(History.self).sorted(byKeyPath: "date", ascending: false).map{$0}
-            histories = Array(histories.prefix(10))
-        }
-        return histories
+    func bindHistories(with list: BehaviorRelay<[History]>, and bag: DisposeBag) {
+        let realm = try! Realm()
+        let hists = realm.objects(History.self).sorted(byKeyPath: "date", ascending: false)
+        Observable.array(from: hists).map { array in
+            return array.prefix(10)
+            }.subscribe(onNext: { items in
+                list.accept(Array(items))
+            }).disposed(by: bag)
     }
     
     func saveHistory(_ historyEntry:String) {
-        if let realm = try? Realm() {
-            try! realm.write {
-                realm.add(History(historyEntry), update: true)
-            }
-        }
+        
+        Observable.from(optional: [History(historyEntry)])
+            .subscribe(Realm.rx.add()).disposed(by: disposeBag)
     }
     
-    func deleteHistory(_ history:History)  -> [History] {
-        if let realm = try? Realm() {
-            try! realm.write {
-                realm.delete(history)
-            }
-        }
-        return getHistories()
+    func deleteHistory(_ history:History){
+        Observable.from([history])
+            .subscribe(Realm.rx.delete()).disposed(by: disposeBag)
     }
 }

@@ -30,12 +30,12 @@ class NetworkHelper {
         }
     }
     
-    func getCategories(onComplete: @escaping ([String], String?) -> Void) {
+    func getCategories(onComplete: @escaping ([String]) -> Void) {
         Alamofire.request("\(baseURL)/categories").responseJSON { (response) in
             if let categories = response.result.value as? [String] {
-                onComplete(categories, nil)
+                onComplete(categories)
             } else {
-                onComplete([], response.result.error?.localizedDescription)
+                onComplete([])
             }
         }
     }
