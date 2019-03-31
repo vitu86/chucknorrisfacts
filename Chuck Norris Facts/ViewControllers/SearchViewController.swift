@@ -52,6 +52,11 @@ class SearchViewController: UIViewController {
         searchTextField.delegate = self
     }
     
+    private func searchFor(_ term: String) {
+        DataHelper.shared.updateFacts(with: term)
+        navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: Table View Support Functions
     private func configureHistoryTableView() {
         // Bind table view with data
@@ -62,7 +67,7 @@ class SearchViewController: UIViewController {
         // Did select item function
         historyTableView.rx.modelSelected(History.self)
             .subscribe(onNext:  { value in
-                self.onHistoryTapped(value)
+                self.searchFor(value.value)
             })
             .disposed(by: disposeBag)
         
@@ -81,11 +86,6 @@ class SearchViewController: UIViewController {
         historyHeightConstraint.constant = historyTableView.contentSize.height
     }
     
-    private func onHistoryTapped(_ history: History) {
-        DataHelper.shared.updateFacts(with: history.value)
-        navigationController?.popViewController(animated: true)
-    }
-    
     // MARK: Collection View Support Functions
     private func configureSuggestionsCollectionView() {
         // Bind collectionview to data
@@ -96,7 +96,7 @@ class SearchViewController: UIViewController {
         // Did select item function
         suggestionsCollectionView.rx.modelSelected(Category.self)
             .subscribe(onNext:  { value in
-                self.onSuggestionTapped(value)
+                self.searchFor(value.name)
             })
             .disposed(by: disposeBag)
         // Delegates to left flow layout and item size
@@ -113,11 +113,6 @@ class SearchViewController: UIViewController {
         // Update height constraint so it doesn't create an inside scroll
         suggestionsHeightConstraint.constant = suggestionsCollectionView.collectionViewLayout.collectionViewContentSize.height
     }
-    
-    private func onSuggestionTapped(_ category: Category) {
-        DataHelper.shared.updateFacts(with: category.name)
-        navigationController?.popViewController(animated: true)
-    }
 }
 
 // MARK: - Text Field Override Functions
@@ -128,8 +123,7 @@ extension SearchViewController: UITextFieldDelegate {
             if search.isEmpty {
                 showAlert(title: "Hey!", message: "Are you searching for nothing?")
             } else {
-                DataHelper.shared.updateFacts(with: search)
-                navigationController?.popViewController(animated: true)
+                self.searchFor(search)
             }
         }
         return true

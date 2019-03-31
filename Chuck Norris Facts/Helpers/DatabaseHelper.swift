@@ -58,9 +58,10 @@ class DatabaseHelper {
     }
     
     func saveHistory(_ historyEntry:String) {
-        
         Observable.from(optional: [History(historyEntry)])
-            .subscribe(Realm.rx.add()).disposed(by: disposeBag)
+            .subscribe(Realm.rx.add(configuration: .defaultConfiguration, update: true, onError: { (O, error) in
+                print(error.localizedDescription)
+            }) ).disposed(by: disposeBag)
     }
     
     func deleteHistory(_ history:History){
