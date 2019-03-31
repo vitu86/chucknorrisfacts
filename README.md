@@ -26,5 +26,7 @@ User can search for facts using an input text, a suggestion showed as tag cloud 
      - For request facts and categories
 5. [Realm](https://github.com/realm)
      - For save categories and search history
-6. [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper)
-     - For make my life easy
+6. [RxRealm](https://github.com/RxSwiftCommunity/RxRealm)
+     - For make my life easier
+7. [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper)
+     - For make my life easier
