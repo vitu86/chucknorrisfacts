@@ -31,6 +31,9 @@ class SearchViewController: UIViewController {
     // MARK: - Private Constants
     private let disposeBag:DisposeBag = DisposeBag()
     
+    // MARK: - Injected Properties
+    var factsLoader:FactViewModel!
+    
     // MARK: - View Controller Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +56,7 @@ class SearchViewController: UIViewController {
     }
     
     private func searchFor(_ term: String) {
-        DataHelper.shared.updateFacts(with: term)
+        factsLoader.getFacts(with: term)
         navigationController?.popViewController(animated: true)
     }
     

@@ -13,6 +13,10 @@ class Fact: Mappable {
     var url: String = ""
     var value: String = ""
     
+    init(value: String){
+        self.value = value
+    }
+    
     required init?(map: Map) {
     }
     

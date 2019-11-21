@@ -20,11 +20,21 @@ class HomeViewController: UIViewController {
     
     // MARK: - Private Contants
     private let disposeBag: DisposeBag = DisposeBag()
+    private var factsLoader: FactViewModel!
     
     // MARK: - ViewController Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        factsLoader = FactViewModel(viewController: self)
         configureUI()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SegueToSearch" {
+            if let destViewCont = segue.destination as? SearchViewController {
+                destViewCont.factsLoader = factsLoader
+            }
+        }
     }
     
     // MARK: - Private Functions
@@ -33,14 +43,14 @@ class HomeViewController: UIViewController {
         hideNextTitleButtonNavBar()
         
         // Switch views if empty/initial state
-        DataHelper.shared.loadingFactsState.asObservable().subscribe { (next) in
+        factsLoader.loadingFactsState.subscribe { (next) in
             if let state = next.element {
                 self.changeViewAccordingToState(state)
             }
             }.disposed(by: disposeBag)
         
         // Observable to get cells
-        DataHelper.shared.facts.asObservable().bind(to: tableview.rx.items(cellIdentifier: "FactsCell", cellType: FactsTableViewCell.self)) { (row, element:Fact, cell) in
+        factsLoader!.subscriber.asObserver().bind(to: tableview.rx.items(cellIdentifier: "FactsCell", cellType: FactsTableViewCell.self)) { (row, element:Fact, cell) in
             self.fillCell(row: row, element: element, cell: cell)
             }
             .disposed(by: disposeBag)
@@ -73,7 +83,7 @@ class HomeViewController: UIViewController {
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    private func changeViewAccordingToState (_ state: DataHelper.State) {
+    private func changeViewAccordingToState (_ state: State) {
         
         self.hideCenterIndicator()
         self.initialContainer.isHidden = true
@@ -82,21 +92,11 @@ class HomeViewController: UIViewController {
         switch state {
         case .Initial:
             self.initialContainer.isHidden = false
-        case .Empty:
-            self.showAlert(title: "Sorry", message: "There are no results for this search", okFunction: { (_) in
-                DataHelper.shared.loadingFactsState.accept(.Initial)
-            }, cancelFunction: nil)
         case .Loading:
             self.showCenterIndicator()
         case .FinishedLoading:
             self.tableview.isHidden = false
             self.hideCenterIndicator()
-        case .Error:
-            if let error = DataHelper.shared.loadingError {
-                self.showAlert(title: "Error", message: error, okFunction: { (_) in
-                    DataHelper.shared.loadingFactsState.accept(.Initial)
-                }, cancelFunction: nil)
-            }
         }
     }
 }

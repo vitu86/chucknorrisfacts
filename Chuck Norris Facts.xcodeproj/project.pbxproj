@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		4AAE0080224F09EB003FC105 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE007F224F09EB003FC105 /* SearchViewController.swift */; };
 		4AAE0082224F0A66003FC105 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE0081224F0A66003FC105 /* UIViewController+Additions.swift */; };
 		4AAE0084224F0DA2003FC105 /* SuggestionsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE0083224F0DA2003FC105 /* SuggestionsCollectionViewCell.swift */; };
+		4EA1F82D23861B3700300FAC /* FactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA1F82C23861B3700300FAC /* FactViewModel.swift */; };
 		935F8BCD50B22D8599768391 /* Pods_Chuck_Norris_FactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */; };
 		CAD1D9402023CF59B53690E1 /* Pods_Chuck_Norris_Facts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85362BF3E295FDADE3A3293 /* Pods_Chuck_Norris_Facts.framework */; };
 		FE47BD20346455783B08EB5D /* Pods_Chuck_Norris_FactsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */; };
@@ -74,6 +75,7 @@
 		4AAE0081224F0A66003FC105 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		4AAE0083224F0DA2003FC105 /* SuggestionsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsCollectionViewCell.swift; sourceTree = "<group>"; };
 		4AD0C7D34018F05871064080 /* Pods-Chuck Norris Facts.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris Facts.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris Facts/Pods-Chuck Norris Facts.release.xcconfig"; sourceTree = "<group>"; };
+		4EA1F82C23861B3700300FAC /* FactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactViewModel.swift; sourceTree = "<group>"; };
 		51116F5944E847466E2ACEE5 /* Pods-Chuck Norris FactsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris FactsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris FactsUITests/Pods-Chuck Norris FactsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chuck_Norris_FactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chuck_Norris_FactsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +158,7 @@
 		4A697826224AF0FA00B7F780 /* Chuck Norris Facts */ = {
 			isa = PBXGroup;
 			children = (
+				4EA1F82B23861B2400300FAC /* ViewModels */,
 				4A106D42224FE5C400CAE13E /* Models */,
 				4A106D3D224FD50800CAE13E /* Helpers */,
 				4AAE007C224F051F003FC105 /* Extensions & Subclassing */,
@@ -221,6 +224,14 @@
 				4A69782B224AF0FA00B7F780 /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		4EA1F82B23861B2400300FAC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4EA1F82C23861B3700300FAC /* FactViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		86CFBB2A33CD158F3F6B8817 /* Frameworks */ = {
@@ -476,6 +487,7 @@
 				4A106D4E2250128000CAE13E /* History.swift in Sources */,
 				4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */,
 				4A106D41224FD52A00CAE13E /* DataHelper.swift in Sources */,
+				4EA1F82D23861B3700300FAC /* FactViewModel.swift in Sources */,
 				4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */,
 				4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */,
 				4A106D4C224FFE1C00CAE13E /* Category.swift in Sources */,
