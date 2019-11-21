@@ -21,20 +21,27 @@ class NetworkHelper {
     }
     
     func getFacts(with search: String, onComplete: @escaping ([Fact], String?) -> Void) {
-        Alamofire.request("\(baseURL)/search?query=\(search)").responseArray(keyPath: "result") { (response: DataResponse<[Fact]>) in
-            if let result = response.result.value {
-                onComplete(result, nil)
-            } else {
-                onComplete([], response.result.error?.localizedDescription)
+        AF.request("\(baseURL)/search?query=\(search)").responseArray(keyPath: "result") { (response: AFDataResponse<[Fact]>) in
+            do {
+                let facts = try response.result.get()
+                onComplete(facts, nil)
+            } catch {
+                onComplete([], error.localizedDescription)
             }
         }
     }
     
     func getCategories(onComplete: @escaping ([String]) -> Void) {
-        Alamofire.request("\(baseURL)/categories").responseJSON { (response) in
-            if let categories = response.result.value as? [String] {
-                onComplete(categories)
-            } else {
+        AF.request("\(baseURL)/categories").responseJSON { (response) in
+            do {
+                let resultValue = try response.result.get()
+                if let categories = resultValue as? [String] {
+                    onComplete(categories)
+                } else {
+                    onComplete([])
+                }
+            } catch {
+                print("Error retrieving the categories: \(error)")
                 onComplete([])
             }
         }

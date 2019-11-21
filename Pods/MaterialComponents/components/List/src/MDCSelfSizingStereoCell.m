@@ -24,6 +24,9 @@
 
 #import "private/MDCSelfSizingStereoCellLayout.h"
 
+static const CGFloat kTitleColorOpacity = (CGFloat)0.87;
+static const CGFloat kDetailColorOpacity = (CGFloat)0.6;
+
 @interface MDCSelfSizingStereoCell ()
 
 @property(nonatomic, strong) UIView *textContainer;
@@ -69,6 +72,8 @@
 }
 
 - (void)commonMDCSelfSizingStereoCellInit {
+  self.cachedLayouts = [[NSMutableDictionary alloc] init];
+  _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = YES;
   [self createSubviews];
 }
 
@@ -119,8 +124,6 @@
   self.leadingImageView.frame = layout.leadingImageViewFrame;
   self.trailingImageView.frame = layout.trailingImageViewFrame;
   if (self.mdf_effectiveUserInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
-    self.titleLabel.textAlignment = NSTextAlignmentRight;
-    self.detailLabel.textAlignment = NSTextAlignmentRight;
     self.leadingImageView.frame =
         MDFRectFlippedHorizontally(self.leadingImageView.frame, layout.cellWidth);
     self.trailingImageView.frame =
@@ -131,15 +134,20 @@
         MDFRectFlippedHorizontally(self.titleLabel.frame, self.textContainer.frame.size.width);
     self.detailLabel.frame =
         MDFRectFlippedHorizontally(self.detailLabel.frame, self.textContainer.frame.size.width);
-  } else {
-    self.titleLabel.textAlignment = NSTextAlignmentLeft;
-    self.detailLabel.textAlignment = NSTextAlignmentLeft;
   }
 }
 
 - (void)setNeedsLayout {
   [self invalidateCachedLayouts];
   [super setNeedsLayout];
+}
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:
+    (UICollectionViewLayoutAttributes *)layoutAttributes {
+  UICollectionViewLayoutAttributes *attributes =
+      [super preferredLayoutAttributesFittingAttributes:layoutAttributes];
+  attributes.size = [self systemLayoutSizeFittingSize:layoutAttributes.size];
+  return attributes;
 }
 
 - (CGSize)systemLayoutSizeFittingSize:(CGSize)targetSize {
@@ -152,12 +160,12 @@
 - (void)prepareForReuse {
   [super prepareForReuse];
 
-  [self invalidateCachedLayouts];
-
   self.titleLabel.text = nil;
   self.detailLabel.text = nil;
   self.leadingImageView.image = nil;
   self.trailingImageView.image = nil;
+
+  [self setNeedsLayout];
 
   [self mdc_setAdjustsFontForContentSizeCategory:NO];
   [self resetMDCSelfSizingStereoCellLabelProperties];
@@ -208,24 +216,40 @@
                                                   object:nil];
   }
 
-  [self adjustFontsForContentSizeCategory];
+  [self adjustFontsForDynamicType];
+}
+
+- (void)setAdjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable:
+    (BOOL)adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable {
+  _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable =
+      adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
+  [self adjustFontsForDynamicType];
 }
 
 // Handles UIContentSizeCategoryDidChangeNotifications
 - (void)contentSizeCategoryDidChange:(__unused NSNotification *)notification {
-  [self adjustFontsForContentSizeCategory];
+  [self adjustFontsForDynamicType];
 }
 
-- (void)adjustFontsForContentSizeCategory {
+- (void)adjustFontsForDynamicType {
   UIFont *titleFont = self.titleLabel.font ?: self.defaultTitleLabelFont;
   UIFont *detailFont = self.detailLabel.font ?: self.defaultDetailLabelFont;
-  if (_mdc_adjustsFontForContentSizeCategory) {
-    titleFont =
-        [titleFont mdc_fontSizedForMaterialTextStyle:MDCFontTextStyleTitle
-                                scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
-    detailFont =
-        [detailFont mdc_fontSizedForMaterialTextStyle:MDCFontTextStyleCaption
-                                 scaledForDynamicType:_mdc_adjustsFontForContentSizeCategory];
+  if (self.mdc_adjustsFontForContentSizeCategory) {
+    if (titleFont.mdc_scalingCurve) {
+      titleFont = [titleFont mdc_scaledFontForTraitEnvironment:self];
+    } else if (self.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable) {
+      titleFont =
+          [titleFont mdc_fontSizedForMaterialTextStyle:MDCFontTextStyleTitle
+                                  scaledForDynamicType:self.mdc_adjustsFontForContentSizeCategory];
+    }
+
+    if (detailFont.mdc_scalingCurve) {
+      detailFont = [detailFont mdc_scaledFontForTraitEnvironment:self];
+    } else if (self.adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable) {
+      detailFont =
+          [detailFont mdc_fontSizedForMaterialTextStyle:MDCFontTextStyleCaption
+                                   scaledForDynamicType:self.mdc_adjustsFontForContentSizeCategory];
+    }
   }
   self.titleLabel.font = titleFont;
   self.detailLabel.font = detailFont;
@@ -243,11 +267,11 @@
 }
 
 - (UIColor *)defaultTitleLabelTextColor {
-  return [UIColor colorWithWhite:0 alpha:[MDCTypography subheadFontOpacity]];
+  return [UIColor colorWithWhite:0 alpha:kTitleColorOpacity];
 }
 
 - (UIColor *)defaultDetailLabelTextColor {
-  return [UIColor colorWithWhite:0 alpha:[MDCTypography captionFontOpacity]];
+  return [UIColor colorWithWhite:0 alpha:kDetailColorOpacity];
 }
 
 @end

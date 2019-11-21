@@ -17,21 +17,23 @@
 
 #import <Foundation/Foundation.h>
 
-#pragma mark - Soon to be deprecated
-
 /**
  Themes @c MDCChipView objects to set their text font to the appropriate font trait given a font
  scheme.
 
- @warning This class will soon be deprecated. Please consider using MDCChipViewTypographyThemer
- instead.
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
  */
-@interface MDCChipViewFontThemer : NSObject
+__deprecated_msg("Use Chips+Theming instead.") @interface MDCChipViewFontThemer : NSObject
 
 /**
  Applies the provided font scheme to the given Chip.
+
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
  */
 + (void)applyFontScheme:(nonnull id<MDCFontScheme>)fontScheme
-             toChipView:(nonnull MDCChipView *)chipView;
+             toChipView:(nonnull MDCChipView *)chipView
+    __deprecated_msg("Use Chips+Theming instead.");
 
 @end

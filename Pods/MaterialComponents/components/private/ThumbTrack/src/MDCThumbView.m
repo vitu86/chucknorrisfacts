@@ -25,8 +25,6 @@
 
 @implementation MDCThumbView
 
-static const CGFloat kMinTouchSize = 48;
-
 + (Class)layerClass {
   return [MDCShadowLayer class];
 }
@@ -37,6 +35,7 @@ static const CGFloat kMinTouchSize = 48;
     // TODO: Remove once MDCShadowLayer is rasterized by default.
     self.layer.shouldRasterize = YES;
     self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+    _shadowColor = UIColor.blackColor;
   }
   return self;
 }
@@ -50,11 +49,6 @@ static const CGFloat kMinTouchSize = 48;
   _cornerRadius = cornerRadius;
   self.layer.cornerRadius = cornerRadius;
   [self setNeedsLayout];
-}
-
-- (void)setHasShadow:(BOOL)hasShadow {
-  _hasShadow = hasShadow;
-  self.elevation = hasShadow ? MDCShadowElevationCardResting : MDCShadowElevationNone;
 }
 
 - (MDCShadowElevation)elevation {
@@ -73,18 +67,7 @@ static const CGFloat kMinTouchSize = 48;
   [super layoutSubviews];
   self.layer.shadowPath =
       [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:_cornerRadius].CGPath;
-}
-
-- (BOOL)pointInside:(CGPoint)point withEvent:(__unused UIEvent *)event {
-  CGFloat dx = MIN(0, _cornerRadius - kMinTouchSize / 2);
-  // Converts point to presentation layer coordinate system so gesture will land on the right visual
-  // position. Assuming superview is not animated.
-  if (self.layer.presentationLayer) {
-    point = [(CALayer *)self.layer.presentationLayer convertPoint:point
-                                                        fromLayer:self.layer.modelLayer];
-  }
-  CGRect rect = CGRectInset(self.bounds, dx, dx);
-  return CGRectContainsPoint(rect, point);
+  self.layer.shadowColor = self.shadowColor.CGColor;
 }
 
 - (void)setIcon:(nullable UIImage *)icon {
@@ -103,6 +86,11 @@ static const CGFloat kMinTouchSize = 48;
     CGFloat topLeft = _cornerRadius - (sideLength / 2);
     _iconView.frame = CGRectMake(topLeft, topLeft, sideLength, sideLength);
   }
+}
+
+- (void)setShadowColor:(UIColor *)shadowColor {
+  _shadowColor = shadowColor;
+  self.layer.shadowColor = shadowColor.CGColor;
 }
 
 @end

@@ -19,7 +19,7 @@
 #import <objc/runtime.h>
 
 // Light-weight book-keeping associated with any pushed view controller.
-@interface MDCAppBarNavigationControllerInfo: NSObject
+@interface MDCAppBarNavigationControllerInfo : NSObject
 
 @property(nonatomic, strong) MDCAppBar *appBar;
 
@@ -48,8 +48,7 @@
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    // We always want the navigation bar to be hidden.
-    [self setNavigationBarHidden:YES animated:NO];
+    [self MDCAppBarNavigationController_commonInit];
   }
   return self;
 }
@@ -57,9 +56,16 @@
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
   self = [super initWithRootViewController:rootViewController];
   if (self) {
+    [self MDCAppBarNavigationController_commonInit];
+
     [self injectAppBarIntoViewController:rootViewController];
   }
   return self;
+}
+
+- (void)MDCAppBarNavigationController_commonInit {
+  // We always want the navigation bar to be hidden.
+  [self setNavigationBarHidden:YES animated:NO];
 }
 
 #pragma mark - UINavigationController overrides
@@ -71,7 +77,7 @@
   if (appBar) {
     return appBar.appBarViewController;
   }
-  return child; // Fall back to using the child if we didn't knowingly inject an app bar.
+  return child;  // Fall back to using the child if we didn't knowingly inject an app bar.
 }
 
 // Inject an App Bar, if necessary, when a view controller is pushed.
@@ -86,9 +92,9 @@
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated {
   for (UIViewController *viewController in viewControllers) {
-    // We call this before invoking super because super immediately queries the pushed view controller
-    // for things like status bar style, which we want to have rerouted to our flexible header view
-    // controller.
+    // We call this before invoking super because super immediately queries the pushed view
+    // controller for things like status bar style, which we want to have rerouted to our flexible
+    // header view controller.
     [self injectAppBarIntoViewController:viewController];
   }
 
@@ -119,12 +125,20 @@
   UIView *viewControllerView = viewController.view;
 
   if ([self viewControllerHasFlexibleHeader:viewController]) {
-    return; // Already has a flexible header (not one we injected, but that's ok).
+    return;  // Already has a flexible header (not one we injected, but that's ok).
   }
 
   // Attempt to infer the tracking scroll view.
   UIScrollView *trackingScrollView =
       [self findFirstInstanceOfUIScrollViewInView:viewControllerView];
+
+  if ([self.delegate respondsToSelector:@selector
+                     (appBarNavigationController:
+                         trackingScrollViewForViewController:suggestedTrackingScrollView:)]) {
+    trackingScrollView = [self.delegate appBarNavigationController:self
+                               trackingScrollViewForViewController:viewController
+                                       suggestedTrackingScrollView:trackingScrollView];
+  }
 
   MDCAppBar *appBar = [[MDCAppBar alloc] init];
 
@@ -162,15 +176,19 @@
 
   appBar.appBarViewController.headerView.trackingScrollView = trackingScrollView;
 
-  if ([self.delegate respondsToSelector:
-       @selector(appBarNavigationController:willAddAppBar:asChildOfViewController:)]) {
+  appBar.appBarViewController.traitCollectionDidChangeBlock =
+      self.traitCollectionDidChangeBlockForAppBarController;
+
+  if ([self.delegate respondsToSelector:@selector
+                     (appBarNavigationController:willAddAppBar:asChildOfViewController:)]) {
     [self.delegate appBarNavigationController:self
                                 willAddAppBar:appBar
                       asChildOfViewController:viewController];
   }
 
-  if ([self.delegate respondsToSelector:
-       @selector(appBarNavigationController:willAddAppBarViewController:asChildOfViewController:)]) {
+  if ([self.delegate
+          respondsToSelector:@selector(appBarNavigationController:
+                                      willAddAppBarViewController:asChildOfViewController:)]) {
     [self.delegate appBarNavigationController:self
                   willAddAppBarViewController:appBar.appBarViewController
                       asChildOfViewController:viewController];
@@ -214,9 +232,7 @@
 
 - (void)setInfo:(MDCAppBarNavigationControllerInfo *)info
     forViewController:(UIViewController *)viewController {
-  objc_setAssociatedObject(viewController,
-                           @selector(infoForViewController:),
-                           info,
+  objc_setAssociatedObject(viewController, @selector(infoForViewController:), info,
                            OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -226,10 +242,9 @@
   return [self infoForViewController:viewController].appBar;
 }
 
-- (MDCAppBarViewController *)
-    appBarViewControllerForViewController:(UIViewController *)viewController {
+- (MDCAppBarViewController *)appBarViewControllerForViewController:
+    (UIViewController *)viewController {
   return [self infoForViewController:viewController].appBar.appBarViewController;
 }
 
 @end
-

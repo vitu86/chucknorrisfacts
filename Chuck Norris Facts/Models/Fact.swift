@@ -9,7 +9,7 @@
 import ObjectMapper
 
 class Fact: Mappable {
-    var category: [String]?
+    var categories: [String]?
     var url: String = ""
     var value: String = ""
     
@@ -17,7 +17,7 @@ class Fact: Mappable {
     }
     
     func mapping(map: Map) {
-        category <- map["category"]
+        categories <- map["categories"]
         url <- map["url"]
         value <- map["value"]
     }

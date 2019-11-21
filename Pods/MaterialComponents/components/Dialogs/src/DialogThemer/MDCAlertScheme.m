@@ -14,17 +14,20 @@
 
 #import "MDCAlertScheme.h"
 
-#import "MaterialShadowElevations.h"
+static const CGFloat kCornerRadius = 4;
 
-static const CGFloat kCornerRadius = 4.0f;
-
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 @implementation MDCAlertScheme
+#pragma clang diagnostic pop
 
 - (instancetype)init {
   self = [super init];
   if (self) {
-    _colorScheme = [[MDCSemanticColorScheme alloc] init];
+    _colorScheme =
+        [[MDCSemanticColorScheme alloc] initWithDefaults:MDCColorSchemeDefaultsMaterial201804];
     _typographyScheme = [[MDCTypographyScheme alloc] init];
+    _buttonScheme = [[MDCButtonScheme alloc] init];
     _cornerRadius = kCornerRadius;
     _elevation = MDCShadowElevationDialog;
   }

@@ -13,12 +13,15 @@
 // limitations under the License.
 
 #import <UIKit/UIKit.h>
+
 #import "MaterialButtons.h"
+#import "MaterialElevation.h"
+#import "MaterialShadowElevations.h"
 
 /**
  Class which provides the default implementation of a Snackbar.
  */
-@interface MDCSnackbarMessageView : UIView
+@interface MDCSnackbarMessageView : UIView <MDCElevatable, MDCElevationOverriding>
 
 /**
  The color for the background of the Snackbar message view.
@@ -59,6 +62,11 @@
 @property(nonatomic, strong, nullable) NSMutableArray<MDCButton *> *actionButtons;
 
 /**
+ The elevation of the snackbar view.
+ */
+@property(nonatomic, assign) MDCShadowElevation elevation;
+
+/**
  The @c accessibilityLabel to apply to the message of the Snackbar.
  */
 @property(nullable, nonatomic, copy) NSString *accessibilityLabel;
@@ -71,7 +79,7 @@
 /**
  Returns the button title color for a particular control state.
 
- Default for UIControlStateNormal is MDCRGBAColor(0xFF, 0xFF, 0xFF, 0.6f).
+ Default for UIControlStateNormal is MDCRGBAColor(0xFF, 0xFF, 0xFF, (CGFloat)0.6).
  Default for UIControlStatehighlighted is white.
 
  @param state The control state.
@@ -85,9 +93,8 @@
  @param titleColor The title color.
  @param state The control state.
  */
-- (void)setButtonTitleColor:(nullable UIColor *)titleColor forState:(UIControlState)state
-UI_APPEARANCE_SELECTOR;
-
+- (void)setButtonTitleColor:(nullable UIColor *)titleColor
+                   forState:(UIControlState)state UI_APPEARANCE_SELECTOR;
 
 /**
  Indicates whether the Snackbar should automatically update its font when the device’s
@@ -102,7 +109,29 @@ UI_APPEARANCE_SELECTOR;
  Default value is NO.
  */
 @property(nonatomic, readwrite, setter=mdc_setAdjustsFontForContentSizeCategory:)
-BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
+    BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
+
+/**
+ Affects the fallback behavior for when a scaled font is not provided.
+
+ If enabled, the font size will adjust even if a scaled font has not been provided for
+ a given UIFont property on this component.
+
+ If disabled, the font size will only be adjusted if a scaled font has been provided.
+ This behavior most closely matches UIKit's.
+
+ Default value is YES, but this flag will eventually default to NO and then be deprecated
+ and deleted.
+ */
+@property(nonatomic, assign) BOOL adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable;
+
+/**
+ A block that is invoked when the MDCSnackbarMessageView receives a call to @c
+ traitCollectionDidChange:. The block is called after the call to the superclass.
+ */
+@property(nonatomic, copy, nullable) void (^traitCollectionDidChangeBlock)
+    (MDCSnackbarMessageView *_Nonnull messageView,
+     UITraitCollection *_Nullable previousTraitCollection);
 
 @end
 

@@ -26,6 +26,7 @@
 @property(nonatomic, strong, nullable) UIFont *messageFont UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong, nullable) UIColor *messageColor UI_APPEARANCE_SELECTOR;
 
+// b/117717380: Will be deprecated (x3)
 @property(nonatomic, strong, nullable) UIFont *buttonFont UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong, nullable) UIColor *buttonColor UI_APPEARANCE_SELECTOR;
 @property(nonatomic, strong, nullable) UIColor *buttonInkColor UI_APPEARANCE_SELECTOR;
@@ -43,5 +44,17 @@
  */
 @property(nonatomic, readwrite, setter=mdc_setAdjustsFontForContentSizeCategory:)
     BOOL mdc_adjustsFontForContentSizeCategory UI_APPEARANCE_SELECTOR;
+
+/**
+ By setting this property to @c YES, the Ripple component will be used instead of Ink
+ to display visual feedback to the user.
+
+ @note This property will eventually be enabled by default, deprecated, and then deleted as part
+ of our migration to Ripple. Learn more at
+ https://github.com/material-components/material-components-ios/tree/develop/components/Ink#migration-guide-ink-to-ripple
+
+ Defaults to NO.
+ */
+@property(nonatomic, assign) BOOL enableRippleBehavior;
 
 @end

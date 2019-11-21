@@ -14,17 +14,27 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MaterialButtons+ButtonThemer.h"
 #import "MaterialColorScheme.h"
+#import "MaterialShadowElevations.h"
 #import "MaterialTypographyScheme.h"
 
-/** Defines a readonly immutable interface for component style data to be applied by a themer. */
-@protocol MDCAlertScheming
+/**
+ Defines a readonly immutable interface for component style data to be applied by a themer.
+
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
+ */
+__deprecated_msg("Please use MDCContainerScheming") @protocol MDCAlertScheming
 
 /** The color scheme to apply to Dialog. */
 @property(nonnull, readonly, nonatomic) id<MDCColorScheming> colorScheme;
 
 /** The typography scheme to apply to Dialog. */
 @property(nonnull, readonly, nonatomic) id<MDCTypographyScheming> typographyScheme;
+
+/** The button scheme to apply to Dialog's actions. */
+@property(nonnull, readonly, nonatomic) id<MDCButtonScheming> buttonScheme;
 
 /** The corner radius to apply to Dialog. */
 @property(readonly, nonatomic) CGFloat cornerRadius;
@@ -34,9 +44,15 @@
 
 @end
 
-/**  A simple implementation of @c MDCAlertScheming that provides default color,
- typography and shape schemes, from which customizations can be made. */
-@interface MDCAlertScheme : NSObject <MDCAlertScheming>
+/**
+ A simple implementation of @c MDCAlertScheming that provides default color,
+ typography and shape schemes, from which customizations can be made.
+
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
+ */
+__deprecated_msg("Please use MDCContainerScheme") @interface MDCAlertScheme
+    : NSObject<MDCAlertScheming>
 
 /** The color scheme to apply to Dialog. */
 @property(nonnull, readwrite, nonatomic) id<MDCColorScheming> colorScheme;
@@ -44,10 +60,13 @@
 /** The typography scheme to apply to Dialog. */
 @property(nonnull, readwrite, nonatomic) id<MDCTypographyScheming> typographyScheme;
 
+/** The button scheme to apply to Dialog's actions. */
+@property(nonnull, readwrite, nonatomic) id<MDCButtonScheming> buttonScheme;
+
 /** The corner radius to apply to Dialog. */
 @property(readwrite, nonatomic) CGFloat cornerRadius;
 
 /** The elevation to apply to the Dialog. */
-@property(readwrite, nonatomic) CGFloat elevation;
+@property(readwrite, nonatomic) MDCShadowElevation elevation;
 
 @end

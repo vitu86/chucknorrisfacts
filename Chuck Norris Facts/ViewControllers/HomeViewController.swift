@@ -37,11 +37,11 @@ class HomeViewController: UIViewController {
             if let state = next.element {
                 self.changeViewAccordingToState(state)
             }
-        }.disposed(by: disposeBag)
+            }.disposed(by: disposeBag)
         
         // Observable to get cells
         DataHelper.shared.facts.asObservable().bind(to: tableview.rx.items(cellIdentifier: "FactsCell", cellType: FactsTableViewCell.self)) { (row, element:Fact, cell) in
-                self.fillCell(row: row, element: element, cell: cell)
+            self.fillCell(row: row, element: element, cell: cell)
             }
             .disposed(by: disposeBag)
         
@@ -56,8 +56,8 @@ class HomeViewController: UIViewController {
     
     private func fillCell (row: Int, element: Fact, cell: FactsTableViewCell) {
         cell.setFact(element.value)
-        if let category = element.category?[0] {
-            cell.setCategory(category)
+        if let categories = element.categories, !categories.isEmpty {
+            cell.setCategory(categories[0])
         } else {
             cell.setCategory("uncategorized")
         }

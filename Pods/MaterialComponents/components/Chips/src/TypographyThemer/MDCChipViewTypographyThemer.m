@@ -14,11 +14,18 @@
 
 #import "MDCChipViewTypographyThemer.h"
 
+#import "MaterialTypography.h"
+
 @implementation MDCChipViewTypographyThemer
 
 + (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
                    toChipView:(nonnull MDCChipView *)chipView {
-  chipView.titleFont = typographyScheme.body2;
+  UIFont *titleFont = typographyScheme.body2;
+
+  if (typographyScheme.useCurrentContentSizeCategoryWhenApplied) {
+    titleFont = [titleFont mdc_scaledFontForTraitEnvironment:chipView];
+  }
+  chipView.titleFont = titleFont;
 }
 
 @end

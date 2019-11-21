@@ -31,16 +31,29 @@
   self = [super init];
   if (self) {
     [[self shadowLayer] setElevation:MDCShadowElevationDialog];
+    _shadowColor = UIColor.blackColor;
   }
   return self;
 }
 
-- (CGFloat)elevation {
+- (MDCShadowElevation)elevation {
   return [self shadowLayer].elevation;
 }
 
-- (void)setElevation:(CGFloat)elevation {
+- (void)setElevation:(MDCShadowElevation)elevation {
   [[self shadowLayer] setElevation:elevation];
+}
+
+- (void)setShadowColor:(UIColor *)shadowColor {
+  UIColor *shadowColorCopy = [shadowColor copy];
+  _shadowColor = shadowColorCopy;
+  [self shadowLayer].shadowColor = shadowColorCopy.CGColor;
+}
+
+- (void)layoutSubviews {
+  [super layoutSubviews];
+
+  [self shadowLayer].shadowColor = self.shadowColor.CGColor;
 }
 
 @end

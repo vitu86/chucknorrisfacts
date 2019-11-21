@@ -14,13 +14,26 @@
 
 #import "MDCAlertTypographyThemer.h"
 
+#import "MDCAlertController+ButtonForAction.h"
+#import "MaterialButtons+TypographyThemer.h"
+#import "MaterialTypography.h"
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 @implementation MDCAlertTypographyThemer
+#pragma clang diagnostic pop
 
 + (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
             toAlertController:(nonnull MDCAlertController *)alertController {
   alertController.titleFont = typographyScheme.headline6;
   alertController.messageFont = typographyScheme.body1;
-  alertController.buttonFont = typographyScheme.button;
+
+  // Apply emphasis-based button theming, if enabled
+  for (MDCAlertAction *action in alertController.actions) {
+    MDCButton *button = [alertController buttonForAction:action];
+    // todo: b/117265609: Incorporate dynamic type support in button themers
+    [MDCButtonTypographyThemer applyTypographyScheme:typographyScheme toButton:button];
+  }
 }
 
 @end

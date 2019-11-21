@@ -14,12 +14,15 @@
 
 #import "MDCButtonBarTypographyThemer.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 @implementation MDCButtonBarTypographyThemer
+#pragma clang diagnostic pop
 
 + (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
-                   toButtonBar:(nonnull MDCButtonBar *)buttonBar {
+                  toButtonBar:(nonnull MDCButtonBar *)buttonBar {
   NSUInteger maximumStateValue = UIControlStateNormal | UIControlStateSelected |
-      UIControlStateHighlighted | UIControlStateDisabled;
+                                 UIControlStateHighlighted | UIControlStateDisabled;
   for (NSUInteger state = 0; state <= maximumStateValue; ++state) {
     [buttonBar setButtonsTitleFont:nil forState:state];
   }

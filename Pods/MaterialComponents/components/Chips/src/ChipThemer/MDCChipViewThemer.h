@@ -20,25 +20,37 @@
 
 /**
  The Material Design themer for instances of MDCChipView.
+
+ @warning This API is deprecated. Learn more at
+ + docs/theming.md#migration-guide-themers-to-theming-extensions
  */
-@interface MDCChipViewThemer : NSObject
+__deprecated_msg("Use Chips+Theming instead.") @interface MDCChipViewThemer : NSObject
 
 /**
  Applies a chip view scheme's properties to an MDCChipView.
- 
+
  @param scheme The chip view scheme to apply to the component instance.
  @param chip A component instance to which the scheme should be applied.
+
+ @warning This API is deprecated. The replacement API is:
+ `MDCChipView`'s `-applyThemeWithScheme:`
+ Learn more at docs/theming.md#migration-guide-themers-to-theming-extensions
  */
 + (void)applyScheme:(nonnull id<MDCChipViewScheming>)scheme
-         toChipView:(nonnull MDCChipView *)chip;
+         toChipView:(nonnull MDCChipView *)chip __deprecated_msg("Use Chips+Theming instead.");
 
 /**
  Applies a chip view scheme's properties to an MDCChipView using the outlined style.
- 
+
  @param scheme The chip view scheme to apply to the component instance.
  @param chip A component instance to which the scheme should be applied.
+
+ @warning This API is deprecated. The replacement API is:
+ `MDCChipView`'s `-applyOutlinedThemeWithScheme:`
+ Learn more at docs/theming.md#migration-guide-themers-to-theming-extensions
  */
 + (void)applyOutlinedVariantWithScheme:(nonnull id<MDCChipViewScheming>)scheme
-                            toChipView:(nonnull MDCChipView *)chip;
+                            toChipView:(nonnull MDCChipView *)chip
+    __deprecated_msg("Use Chips+Theming instead.");
 
 @end

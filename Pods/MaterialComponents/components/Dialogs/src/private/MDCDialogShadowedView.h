@@ -14,6 +14,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MaterialShadowElevations.h"
+
 @interface MDCDialogShadowedView : UIView
-@property(nonatomic, assign) CGFloat elevation;
+@property(nonatomic, assign) MDCShadowElevation elevation;
+
+/** The shadow color of the dialog. Defaults to black. */
+@property(nonatomic, copy, nonnull) UIColor *shadowColor;
 @end

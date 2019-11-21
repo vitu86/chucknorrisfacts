@@ -19,16 +19,23 @@
 
 /**
  The Material Design typography system's themer for instances of MDCChipView.
+
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
  */
-@interface MDCChipViewTypographyThemer : NSObject
+__deprecated_msg("Use Chips+Theming instead.") @interface MDCChipViewTypographyThemer : NSObject
 
 /**
  Applies a typography scheme's properties to an MDCChipView.
 
  @param typographyScheme The typography scheme to apply to the component instance.
  @param chipView A component instance to which the typography scheme should be applied.
+
+ @warning This API is deprecated. Learn more at
+ docs/theming.md#migration-guide-themers-to-theming-extensions
  */
 + (void)applyTypographyScheme:(nonnull id<MDCTypographyScheming>)typographyScheme
-                   toChipView:(nonnull MDCChipView *)chipView;
+                   toChipView:(nonnull MDCChipView *)chipView
+    __deprecated_msg("Use Chips+Theming instead.");
 
 @end
