@@ -10,11 +10,12 @@ target 'Chuck Norris Facts' do
   pod 'DGCollectionViewLeftAlignFlowLayout'
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'Alamofire'
+  pod 'Alamofire', '~> 5.0.0-rc.2'
   pod 'AlamofireObjectMapper'
   pod 'Realm'
   pod 'RealmSwift'
   pod 'RxRealm'
+  pod 'SwiftLint'
 
   target 'Chuck Norris FactsTests' do
     inherit! :search_paths
