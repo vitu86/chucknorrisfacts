@@ -27,6 +27,7 @@ class SearchViewController: UIViewController {
     
     // MARK: - Private Properties
     private var searchTFController:MDCTextInputControllerOutlined!
+    private var historyLoader: HistoryViewModel!
     
     // MARK: - Private Constants
     private let disposeBag:DisposeBag = DisposeBag()
@@ -38,6 +39,7 @@ class SearchViewController: UIViewController {
     // MARK: - View Controller Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        historyLoader = HistoryViewModel(bag: disposeBag)
         configureUI()
     }
     
@@ -64,7 +66,7 @@ class SearchViewController: UIViewController {
     // MARK: Table View Support Functions
     private func configureHistoryTableView() {
         // Bind table view with data
-        DataHelper.shared.histories.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element: History, cell) in
+        historyLoader.subscriber.asObservable().bind(to: historyTableView.rx.items(cellIdentifier: "HistoryCell", cellType: UITableViewCell.self)) { (row, element: History, cell) in
             self.fillHistoryCell(element, cell)
             }.disposed(by: disposeBag)
         
@@ -78,7 +80,7 @@ class SearchViewController: UIViewController {
         // Slide to delete functions
         historyTableView.rx.itemDeleted.subscribe{
             if let indexPath = $0.element {
-                DataHelper.shared.deleteHistory(at: indexPath)
+                self.historyLoader.deleteHistory(at: indexPath)
             }
             }.disposed(by: disposeBag)
     }

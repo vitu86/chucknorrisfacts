@@ -47,14 +47,10 @@ class DatabaseHelper {
     }
     
     // MARK: - History Functions
-    func bindHistories(with list: BehaviorRelay<[History]>, and bag: DisposeBag) {
+    func getHistories() -> Results<History>{
         let realm = try! Realm()
         let hists = realm.objects(History.self).sorted(byKeyPath: "date", ascending: false)
-        Observable.array(from: hists).map { array in
-            return array.prefix(10)
-            }.subscribe(onNext: { items in
-                list.accept(Array(items))
-            }).disposed(by: bag)
+        return hists
     }
     
     func saveHistory(_ historyEntry:String) {
