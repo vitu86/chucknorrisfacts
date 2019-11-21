@@ -30,6 +30,7 @@ class SearchViewController: UIViewController {
     
     // MARK: - Private Constants
     private let disposeBag:DisposeBag = DisposeBag()
+    private let categoriesLoader: CategoryViewModel = CategoryViewModel()
     
     // MARK: - Injected Properties
     var factsLoader:FactViewModel!
@@ -92,7 +93,7 @@ class SearchViewController: UIViewController {
     // MARK: Collection View Support Functions
     private func configureSuggestionsCollectionView() {
         // Bind collectionview to data
-        DataHelper.shared.categories.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element: Category, cell) in
+        categoriesLoader.subscriber.asObservable().bind(to: suggestionsCollectionView.rx.items(cellIdentifier: "SuggestionCell", cellType: SuggestionsCollectionViewCell.self)) { (row, element: Category, cell) in
             self.fillSuggestionCell(row, element, cell)
             }.disposed(by: disposeBag)
         
@@ -107,7 +108,7 @@ class SearchViewController: UIViewController {
         suggestionsCollectionView.collectionViewLayout = DGCollectionViewLeftAlignFlowLayout()
         
         // Shuffle suggestions
-        DataHelper.shared.shuffleSuggestions()
+        categoriesLoader.shuffleSuggestions()
     }
     
     private func fillSuggestionCell (_ row: Int, _ element: Category, _ cell: SuggestionsCollectionViewCell) {
@@ -136,9 +137,13 @@ extension SearchViewController: UITextFieldDelegate {
 // MARK: - Collection View Layout Delegate Override Functions
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size: CGSize = DataHelper.shared.categories.value[indexPath.row].name.uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
-        size.width += 45 // Adjusting Text Insets
-        size.height = 30
-        return size
+        do {
+            var size: CGSize = try categoriesLoader.subscriber.value()[indexPath.row].name.uppercased().size(withAttributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17.0)])
+            size.width += 45 // Adjusting Text Insets
+            size.height = 30
+            return size
+        } catch {
+            return CGSize.zero
+        }
     }
 }
