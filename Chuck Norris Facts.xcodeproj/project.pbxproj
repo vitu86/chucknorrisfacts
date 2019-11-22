@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4A106D44224FE5D100CAE13E /* Fact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D43224FE5D100CAE13E /* Fact.swift */; };
 		4A106D48224FE9BE00CAE13E /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */; };
-		4A106D4C224FFE1C00CAE13E /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4B224FFE1C00CAE13E /* Category.swift */; };
 		4A106D4E2250128000CAE13E /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4D2250128000CAE13E /* History.swift */; };
 		4A106D502250134F00CAE13E /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4F2250134F00CAE13E /* DatabaseHelper.swift */; };
 		4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697827224AF0FA00B7F780 /* AppDelegate.swift */; };
@@ -17,8 +16,6 @@
 		4A69782D224AF0FA00B7F780 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A69782B224AF0FA00B7F780 /* Main.storyboard */; };
 		4A69782F224AF10800B7F780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A69782E224AF10800B7F780 /* Assets.xcassets */; };
 		4A697832224AF10800B7F780 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A697830224AF10800B7F780 /* LaunchScreen.storyboard */; };
-		4A69783D224AF10800B7F780 /* Chuck_Norris_FactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A69783C224AF10800B7F780 /* Chuck_Norris_FactsTests.swift */; };
-		4A697848224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A697847224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift */; };
 		4AAE0078224EFA01003FC105 /* FactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE0077224EFA01003FC105 /* FactsTableViewCell.swift */; };
 		4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE007D224F0538003FC105 /* EdgeInsetLabel.swift */; };
 		4AAE0080224F09EB003FC105 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAE007F224F09EB003FC105 /* SearchViewController.swift */; };
@@ -27,20 +24,17 @@
 		4EA1F82D23861B3700300FAC /* FactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA1F82C23861B3700300FAC /* FactViewModel.swift */; };
 		4EA1F82F238634FE00300FAC /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA1F82E238634FE00300FAC /* CategoryViewModel.swift */; };
 		4EA1F8312386398600300FAC /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA1F8302386398600300FAC /* HistoryViewModel.swift */; };
+		4EFB82A7238774AB00B7AB90 /* NetworkHelperUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFB82A6238774AB00B7AB90 /* NetworkHelperUnitTests.swift */; };
+		4EFB82B323877DAE00B7AB90 /* Fact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D43224FE5D100CAE13E /* Fact.swift */; };
+		4EFB82B623877DAE00B7AB90 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D47224FE9BE00CAE13E /* NetworkHelper.swift */; };
+		4EFB82B923877F8900B7AB90 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A106D4B224FFE1C00CAE13E /* Category.swift */; };
 		935F8BCD50B22D8599768391 /* Pods_Chuck_Norris_FactsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */; };
 		CAD1D9402023CF59B53690E1 /* Pods_Chuck_Norris_Facts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85362BF3E295FDADE3A3293 /* Pods_Chuck_Norris_Facts.framework */; };
-		FE47BD20346455783B08EB5D /* Pods_Chuck_Norris_FactsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */; };
+		F51E67A196EE9853B2853456 /* Pods_Chuck_Norris_Facts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EFB82B123877D6700B7AB90 /* Pods_Chuck_Norris_Facts.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		4A697839224AF10800B7F780 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A69781C224AF0FA00B7F780 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A697823224AF0FA00B7F780;
-			remoteInfo = "Chuck Norris Facts";
-		};
-		4A697844224AF10800B7F780 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A69781C224AF0FA00B7F780 /* Project object */;
 			proxyType = 1;
@@ -64,11 +58,7 @@
 		4A697831224AF10800B7F780 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A697833224AF10800B7F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A697838224AF10800B7F780 /* Chuck Norris FactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Norris FactsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A69783C224AF10800B7F780 /* Chuck_Norris_FactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chuck_Norris_FactsTests.swift; sourceTree = "<group>"; };
 		4A69783E224AF10800B7F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A697843224AF10800B7F780 /* Chuck Norris FactsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Chuck Norris FactsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A697847224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chuck_Norris_FactsUITests.swift; sourceTree = "<group>"; };
-		4A697849224AF10800B7F780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AAE0077224EFA01003FC105 /* FactsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactsTableViewCell.swift; sourceTree = "<group>"; };
 		4AAE007D224F0538003FC105 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
 		4AAE007F224F09EB003FC105 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +68,8 @@
 		4EA1F82C23861B3700300FAC /* FactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactViewModel.swift; sourceTree = "<group>"; };
 		4EA1F82E238634FE00300FAC /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		4EA1F8302386398600300FAC /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		4EFB82A6238774AB00B7AB90 /* NetworkHelperUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelperUnitTests.swift; sourceTree = "<group>"; };
+		4EFB82B123877D6700B7AB90 /* Pods_Chuck_Norris_Facts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Chuck_Norris_Facts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		51116F5944E847466E2ACEE5 /* Pods-Chuck Norris FactsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chuck Norris FactsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chuck Norris FactsUITests/Pods-Chuck Norris FactsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chuck_Norris_FactsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chuck_Norris_FactsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAD1D9402023CF59B53690E1 /* Pods_Chuck_Norris_Facts.framework in Frameworks */,
+				F51E67A196EE9853B2853456 /* Pods_Chuck_Norris_Facts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,14 +94,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				935F8BCD50B22D8599768391 /* Pods_Chuck_Norris_FactsTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A697840224AF10800B7F780 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FE47BD20346455783B08EB5D /* Pods_Chuck_Norris_FactsUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +124,6 @@
 			children = (
 				4A697826224AF0FA00B7F780 /* Chuck Norris Facts */,
 				4A69783B224AF10800B7F780 /* Chuck Norris FactsTests */,
-				4A697846224AF10800B7F780 /* Chuck Norris FactsUITests */,
 				4A697825224AF0FA00B7F780 /* Products */,
 				E8D5E2C50CE36B2F33AF8F0C /* Pods */,
 				86CFBB2A33CD158F3F6B8817 /* Frameworks */,
@@ -151,7 +135,6 @@
 			children = (
 				4A697824224AF0FA00B7F780 /* Chuck Norris Facts.app */,
 				4A697838224AF10800B7F780 /* Chuck Norris FactsTests.xctest */,
-				4A697843224AF10800B7F780 /* Chuck Norris FactsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,19 +159,10 @@
 		4A69783B224AF10800B7F780 /* Chuck Norris FactsTests */ = {
 			isa = PBXGroup;
 			children = (
-				4A69783C224AF10800B7F780 /* Chuck_Norris_FactsTests.swift */,
 				4A69783E224AF10800B7F780 /* Info.plist */,
+				4EFB82A6238774AB00B7AB90 /* NetworkHelperUnitTests.swift */,
 			);
 			path = "Chuck Norris FactsTests";
-			sourceTree = "<group>";
-		};
-		4A697846224AF10800B7F780 /* Chuck Norris FactsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4A697847224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift */,
-				4A697849224AF10800B7F780 /* Info.plist */,
-			);
-			path = "Chuck Norris FactsUITests";
 			sourceTree = "<group>";
 		};
 		4AAE0074224EF9C1003FC105 /* Cells */ = {
@@ -240,6 +214,7 @@
 		86CFBB2A33CD158F3F6B8817 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4EFB82B123877D6700B7AB90 /* Pods_Chuck_Norris_Facts.framework */,
 				D85362BF3E295FDADE3A3293 /* Pods_Chuck_Norris_Facts.framework */,
 				5545E7BCC84919D4E5FCBC4B /* Pods_Chuck_Norris_FactsTests.framework */,
 				76D967414899741A0FB62B53 /* Pods_Chuck_Norris_FactsUITests.framework */,
@@ -301,25 +276,6 @@
 			productReference = 4A697838224AF10800B7F780 /* Chuck Norris FactsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4A697842224AF10800B7F780 /* Chuck Norris FactsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4A697852224AF10800B7F780 /* Build configuration list for PBXNativeTarget "Chuck Norris FactsUITests" */;
-			buildPhases = (
-				36E6C3A812512780137A3D52 /* [CP] Check Pods Manifest.lock */,
-				4A69783F224AF10800B7F780 /* Sources */,
-				4A697840224AF10800B7F780 /* Frameworks */,
-				4A697841224AF10800B7F780 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4A697845224AF10800B7F780 /* PBXTargetDependency */,
-			);
-			name = "Chuck Norris FactsUITests";
-			productName = "Chuck Norris FactsUITests";
-			productReference = 4A697843224AF10800B7F780 /* Chuck Norris FactsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -334,10 +290,6 @@
 						CreatedOnToolsVersion = 10.2;
 					};
 					4A697837224AF10800B7F780 = {
-						CreatedOnToolsVersion = 10.2;
-						TestTargetID = 4A697823224AF0FA00B7F780;
-					};
-					4A697842224AF10800B7F780 = {
 						CreatedOnToolsVersion = 10.2;
 						TestTargetID = 4A697823224AF0FA00B7F780;
 					};
@@ -358,7 +310,6 @@
 			targets = (
 				4A697823224AF0FA00B7F780 /* Chuck Norris Facts */,
 				4A697837224AF10800B7F780 /* Chuck Norris FactsTests */,
-				4A697842224AF10800B7F780 /* Chuck Norris FactsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -381,38 +332,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A697841224AF10800B7F780 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36E6C3A812512780137A3D52 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Chuck Norris FactsUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		ACD9CF2962461113EC5E5554 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,10 +412,10 @@
 				4A106D4E2250128000CAE13E /* History.swift in Sources */,
 				4EA1F82F238634FE00300FAC /* CategoryViewModel.swift in Sources */,
 				4A69782A224AF0FA00B7F780 /* HomeViewController.swift in Sources */,
+				4EFB82B923877F8900B7AB90 /* Category.swift in Sources */,
 				4EA1F82D23861B3700300FAC /* FactViewModel.swift in Sources */,
 				4A697828224AF0FA00B7F780 /* AppDelegate.swift in Sources */,
 				4AAE007E224F0538003FC105 /* EdgeInsetLabel.swift in Sources */,
-				4A106D4C224FFE1C00CAE13E /* Category.swift in Sources */,
 				4A106D502250134F00CAE13E /* DatabaseHelper.swift in Sources */,
 				4EA1F8312386398600300FAC /* HistoryViewModel.swift in Sources */,
 			);
@@ -503,15 +425,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A69783D224AF10800B7F780 /* Chuck_Norris_FactsTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A69783F224AF10800B7F780 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A697848224AF10800B7F780 /* Chuck_Norris_FactsUITests.swift in Sources */,
+				4EFB82B323877DAE00B7AB90 /* Fact.swift in Sources */,
+				4EFB82B623877DAE00B7AB90 /* NetworkHelper.swift in Sources */,
+				4EFB82A7238774AB00B7AB90 /* NetworkHelperUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,11 +438,6 @@
 			isa = PBXTargetDependency;
 			target = 4A697823224AF0FA00B7F780 /* Chuck Norris Facts */;
 			targetProxy = 4A697839224AF10800B7F780 /* PBXContainerItemProxy */;
-		};
-		4A697845224AF10800B7F780 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A697823224AF0FA00B7F780 /* Chuck Norris Facts */;
-			targetProxy = 4A697844224AF10800B7F780 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -708,7 +619,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D2B3C5CFC0433AF4080CE578 /* Pods-Chuck Norris FactsTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87JB6QS95U;
@@ -730,7 +641,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A22881D128A5E5973333DDE /* Pods-Chuck Norris FactsTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87JB6QS95U;
@@ -745,48 +656,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chuck Norris Facts.app/Chuck Norris Facts";
-			};
-			name = Release;
-		};
-		4A697853224AF10800B7F780 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51116F5944E847466E2ACEE5 /* Pods-Chuck Norris FactsUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87JB6QS95U;
-				INFOPLIST_FILE = "Chuck Norris FactsUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cc.vitorcosta.Chuck-Norris-FactsUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Chuck Norris Facts";
-			};
-			name = Debug;
-		};
-		4A697854224AF10800B7F780 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8798CE521E7A8D0641195A21 /* Pods-Chuck Norris FactsUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 87JB6QS95U;
-				INFOPLIST_FILE = "Chuck Norris FactsUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "cc.vitorcosta.Chuck-Norris-FactsUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Chuck Norris Facts";
 			};
 			name = Release;
 		};
@@ -816,15 +685,6 @@
 			buildConfigurations = (
 				4A697850224AF10800B7F780 /* Debug */,
 				4A697851224AF10800B7F780 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4A697852224AF10800B7F780 /* Build configuration list for PBXNativeTarget "Chuck Norris FactsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A697853224AF10800B7F780 /* Debug */,
-				4A697854224AF10800B7F780 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

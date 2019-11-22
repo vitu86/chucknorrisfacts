@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '12.2'
 
 target 'Chuck Norris Facts' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -18,11 +18,6 @@ target 'Chuck Norris Facts' do
   pod 'SwiftLint'
 
   target 'Chuck Norris FactsTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Chuck Norris FactsUITests' do
     inherit! :search_paths
     # Pods for testing
   end
