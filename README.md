@@ -20,13 +20,21 @@ User can search for facts using an input text, a suggestion showed as tag cloud 
      - For loading progress and text field customization
 2. [DGCollectionViewLeftAlignFlowLayout](https://github.com/Digipolitan/collection-view-left-align-flow-layout)
      - For keep tag cloud aligned to left
-3. [RxSwift](https://github.com/ReactiveX/RxSwift)
+3. [RxSwift](https://github.com/ReactiveX/RxSwift) and [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/master/RxCocoa)
      - For bind lists and collections to their data
 4. [Alamofire](https://github.com/Alamofire/Alamofire)
      - For request facts and categories
 5. [Realm](https://github.com/realm)
      - For save categories and search history
-6. [RxRealm](https://github.com/RxSwiftCommunity/RxRealm)
-     - For make my life easier
-7. [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper)
-     - For make my life easier
+6. [AlamofireObjectMapper](https://github.com/tristanhimmelman/AlamofireObjectMapper)
+     - For map jsons to objects inside the app
+7. [SwiftLint](https://github.com/realm/SwiftLint)
+     - To be sure the code is following the best practices
+8. Some other to support these
+
+## Methods
+1. Trying to use MVVM in Swift, but still learning.
+2. Use Network and Database connection as Singletons, so I can access them anywhere in the app.
+3. Custom alerts inside UIViewController extension, so I can use it inside any UIViewController.
+4. Injecting ViewModel through prepare for segue function, as it is only one needed.
+5. Used native XCTest so I can learn the basic of testing.
